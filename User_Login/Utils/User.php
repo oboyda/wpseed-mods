@@ -1,15 +1,15 @@
 <?php
 
-namespace PBOOT\Mod\User_Login\Utils;
+namespace WPSEEDM\Mod\User_Login\Utils;
 
-use PBOOT\Utils\Base as Utils_Base;
-use PBOOT\Type\User as Type_User;
+use WPSEEDM\Utils\Base as Utils_Base;
+use WPSEEDM\Type\User as Type_User;
 
 class User
 {
     static function emailVerificationEnabled()
     {
-        return apply_filters('pboot_user_login_verif_enabled', false);
+        return apply_filters('wpseedm_user_login_verif_enabled', false);
     }
 
     static function getHashes()
@@ -77,12 +77,12 @@ class User
     {
         $password_ok = (is_string($password) && strlen($password) >= 5);
 
-        return apply_filters('pboot_user_login_pass_strength', $password_ok, $password);
+        return apply_filters('wpseedm_user_login_pass_strength', $password_ok, $password);
     }
 
     static function sendResetPassEmail($user, $hash)
     {
-        $type_user = is_a($user, '\PBOOT\Type\User') ? $user : new Type_User($user);
+        $type_user = is_a($user, '\WPSEEDM\Type\User') ? $user : new Type_User($user);
 
         $user_email = $type_user->getEmail();
 
@@ -91,7 +91,7 @@ class User
             return false;
         }
 
-        $resetpass_url = apply_filters('pboot_user_login_resetpass_url', add_query_arg([
+        $resetpass_url = apply_filters('wpseedm_user_login_resetpass_url', add_query_arg([
             'email' => $user_email,
             'resetpasshash' => $hash
         ], get_site_url()));
@@ -108,7 +108,7 @@ class User
 
     static function sendVerificationEmail($user, $placeholders=[])
     {
-        $type_user = is_a($user, '\PBOOT\Type\User') ? $user : new Type_User($user);
+        $type_user = is_a($user, '\WPSEEDM\Type\User') ? $user : new Type_User($user);
 
         $user_email = $type_user->getEmail();
 
@@ -129,7 +129,7 @@ class User
                 '%user_email%' => $user_email,
                 '%user_name%' => $type_user->getFullName(),
                 '%email_verif_url%' => $verif_url,
-                '%user_password%' => __('Selected password', 'pboot')
+                '%user_password%' => __('Selected password', 'wpseedm')
             ])
         );
     }

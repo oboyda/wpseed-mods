@@ -1,8 +1,8 @@
 <?php
 
-namespace PBOOT\Mod\Form_Advanced\View;
+namespace WPSEEDM\Mod\Form_Advanced\View;
 
-class Form_Nice_Dropdown extends \PBOOT\View\View 
+class Form_Nice_Dropdown extends \WPSEEDM\View\View 
 {
     public function __construct($args)
     {
@@ -11,7 +11,7 @@ class Form_Nice_Dropdown extends \PBOOT\View\View
             'enabled' => true,
             'input_name' => '',
             'multiple' => false,
-            'label' => __('Select', 'pboot'),
+            'label' => __('Select', 'wpseedm'),
             'update_label' => true,
             'empty_name' => '',
             'selected' => '',

@@ -1,8 +1,8 @@
 <?php
 
-namespace PBOOT\Mod\User_Login\View;
+namespace WPSEEDM\Mod\User_Login\View;
 
-class Resetpass_Status extends \PBOOT\View\View 
+class Resetpass_Status extends \WPSEEDM\View\View 
 {
     public function __construct($args)
     {
@@ -10,10 +10,10 @@ class Resetpass_Status extends \PBOOT\View\View
 
             'status' => false,
             'email' => '',
-            'success_message' => __('Password has been reset successfully! New password has been sent to %s.', 'pboot'),
-            'error_message' => __('Failed to reset password! Please try again later.', 'pboot'),
+            'success_message' => __('Password has been reset successfully! New password has been sent to %s.', 'wpseedm'),
+            'error_message' => __('Failed to reset password! Please try again later.', 'wpseedm'),
             'back_url' => home_url(),
-            'back_label' => __('Close', 'pboot')
+            'back_label' => __('Close', 'wpseedm')
         ]);
 
         $this->setArgs();

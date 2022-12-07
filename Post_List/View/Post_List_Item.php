@@ -1,8 +1,8 @@
 <?php
 
-namespace PBOOT\Mod\Post_List\View;
+namespace WPSEEDM\Mod\Post_List\View;
 
-class Post_List_Item extends \PBOOT\View\View 
+class Post_List_Item extends \WPSEEDM\View\View 
 {
     public $item;
 
@@ -11,7 +11,7 @@ class Post_List_Item extends \PBOOT\View\View
         parent::__construct($args, [
 
             'item' => null,
-            'type_class' => '\PBOOT\Type\Post'
+            'type_class' => '\WPSEEDM\Type\Post'
         ]);
 
         $type_class = $this->args['type_class'];

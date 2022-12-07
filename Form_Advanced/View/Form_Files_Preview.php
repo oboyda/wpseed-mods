@@ -1,8 +1,8 @@
 <?php
 
-namespace PBOOT\Mod\Form_Advanced\View;
+namespace WPSEEDM\Mod\Form_Advanced\View;
 
-class Form_Files_Preview extends \PBOOT\View\View 
+class Form_Files_Preview extends \WPSEEDM\View\View 
 {
     public function __construct($args)
     {

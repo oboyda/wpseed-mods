@@ -19,10 +19,10 @@ jQuery.fn.extend({
     
                 const data = new FormData(form.get(0));
     
-                form.triggerHandler("pboot_submit_ajax_form_std_before", [data]);
+                form.triggerHandler("wpseedm_submit_ajax_form_std_before", [data]);
     
                 jQuery.ajax({
-                    url: form.attr("action") ? form.attr("action") : pbootIndexVars.ajaxurl,
+                    url: form.attr("action") ? form.attr("action") : wpseedmIndexVars.ajaxurl,
                     type: "POST",
                     enctype: form.attr("enctype") ? form.attr("enctype") : "application/x-www-form-urlencoded",
                     data: data,
@@ -50,7 +50,7 @@ jQuery.fn.extend({
     
                     form.ajaxFormShowStatus(resp);
     
-                    form.triggerHandler("pboot_submit_ajax_form_std_success", [resp, data]);
+                    form.triggerHandler("wpseedm_submit_ajax_form_std_success", [resp, data]);
                 })
                 .fail(function(error)
                 {
@@ -58,7 +58,7 @@ jQuery.fn.extend({
                 })
                 .always(function(resp)
                 {
-                    form.triggerHandler("pboot_submit_ajax_form_std_after", [resp, data]);
+                    form.triggerHandler("wpseedm_submit_ajax_form_std_after", [resp, data]);
                 })
             });
     
@@ -66,7 +66,7 @@ jQuery.fn.extend({
                 form.submit();
             });
     
-            form.on("pboot_show_form_status", function(e, resp){
+            form.on("wpseedm_show_form_status", function(e, resp){
                 form.ajaxFormShowStatus(resp);
             });
     

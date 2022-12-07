@@ -1,8 +1,8 @@
 <?php
 
-namespace PBOOT\Mod\Status_Message\View;
+namespace WPSEEDM\Mod\Status_Message\View;
 
-class Status_Message extends \PBOOT\View\View 
+class Status_Message extends \WPSEEDM\View\View 
 {
     public function __construct($args)
     {

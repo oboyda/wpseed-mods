@@ -14,7 +14,7 @@ jQuery(function($){
 
         const btModal = new Modal(modalElem.get(0));
 
-        $(document.body).on("pboot_open_site_modal", function(e, _args={}){
+        $(document.body).on("wpseedm_open_site_modal", function(e, _args={}){
 
             const args = {
                 modalTitle: "",
@@ -36,7 +36,7 @@ jQuery(function($){
             btModal.show();
         });
 
-        $(document.body).on("pboot_open_site_modal_load", function(e, _args={}){
+        $(document.body).on("wpseedm_open_site_modal_load", function(e, _args={}){
 
             const args = {
                 modalTitle: "",
@@ -61,7 +61,7 @@ jQuery(function($){
             btModal.show();
 
             // Load view in modal body
-            modalBodyElem.viewAjaxLoad("pboot_load_view", args.viewName, args.viewArgs, args.viewArgsCast, function(resp){
+            modalBodyElem.viewAjaxLoad("wpseedm_load_view", args.viewName, args.viewArgs, args.viewArgsCast, function(resp){
                 modalElem.removeClass("loading");
             });
         });

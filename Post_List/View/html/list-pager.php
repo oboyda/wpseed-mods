@@ -18,7 +18,7 @@
             <li class="page page-prev">
                 <a href="<?php echo add_query_arg('paged', $view->get_page_prev()); ?>" class="app-btn size-small icon-only" data-page="<?php echo $view->get_page_prev(); ?>">
                     <i class="bi bi-chevron-left"></i>
-                    <?php //_e('Prev', 'pboot'); ?>
+                    <?php //_e('Prev', 'wpseedm'); ?>
                 </a>
             </li>
             <?php endif; ?>
@@ -47,7 +47,7 @@
             <li class="page page-next">
                 <a href="<?php echo add_query_arg('paged', $view->get_page_next()); ?>" class="app-btn size-small icon-only" data-page="<?php echo $view->get_page_next(); ?>">
                     <i class="bi bi-chevron-right"></i>
-                    <?php //_e('Next', 'pboot'); ?>
+                    <?php //_e('Next', 'wpseedm'); ?>
                 </a>
             </li>
             <?php endif; ?>

@@ -1,6 +1,6 @@
 <?php
 
-namespace PBOOT\Mod\Action_Email\Type\Reg;
+namespace WPSEEDM\Mod\Action_Email\Type\Reg;
 
 class Email 
 {
@@ -12,30 +12,30 @@ class Email
     static function registerType()
     {
         $labels = [
-            'name'               => _x('Action Emails', 'post type general name', 'pboot'),
-            'singular_name'      => _x('Action Email', 'post type singular name', 'pboot'),
-            'menu_name'          => _x('Action Emails', 'admin menu', 'pboot'),
-            'name_admin_bar'     => _x('Action Emails', 'add new on admin bar', 'pboot'),
-            'add_new'            => _x('Add action email', 'action email type', 'pboot'),
-            'add_new_item'       => __('Add new action email', 'pboot'),
-            'new_item'           => __('New action email', 'pboot'),
-            'edit_item'          => __('Edit action email', 'pboot'),
-            'view_item'          => __('View action email', 'pboot'),
-            'all_items'          => __('All action emails', 'pboot'),
-            'search_items'       => __('Search action emails', 'pboot'),
-            'parent_item_colon'  => __('Action Email parent:', 'pboot'),
-            'not_found'          => __('No action emails found.', 'pboot'),
-            'not_found_in_trash' => __('No action emails found in trash.', 'pboot')
+            'name'               => _x('Action Emails', 'post type general name', 'wpseedm'),
+            'singular_name'      => _x('Action Email', 'post type singular name', 'wpseedm'),
+            'menu_name'          => _x('Action Emails', 'admin menu', 'wpseedm'),
+            'name_admin_bar'     => _x('Action Emails', 'add new on admin bar', 'wpseedm'),
+            'add_new'            => _x('Add action email', 'action email type', 'wpseedm'),
+            'add_new_item'       => __('Add new action email', 'wpseedm'),
+            'new_item'           => __('New action email', 'wpseedm'),
+            'edit_item'          => __('Edit action email', 'wpseedm'),
+            'view_item'          => __('View action email', 'wpseedm'),
+            'all_items'          => __('All action emails', 'wpseedm'),
+            'search_items'       => __('Search action emails', 'wpseedm'),
+            'parent_item_colon'  => __('Action Email parent:', 'wpseedm'),
+            'not_found'          => __('No action emails found.', 'wpseedm'),
+            'not_found_in_trash' => __('No action emails found in trash.', 'wpseedm')
         ];
         $args = [
             'labels'              => $labels,
-            'description'         => __('Action Email post type.', 'pboot'),
+            'description'         => __('Action Email post type.', 'wpseedm'),
             'public'              => true,
             'publicly_queryable'  => true,
             'show_ui'             => true,
             'show_in_menu'        => true,
             'query_var'           => true,
-            'rewrite'             => array('slug' => _x('action-email', 'URL slug', 'pboot')),
+            'rewrite'             => array('slug' => _x('action-email', 'URL slug', 'wpseedm')),
             'capability_category' => 'post',
             'has_archive'         => true,
             'hierarchical'        => false,

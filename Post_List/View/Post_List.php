@@ -1,10 +1,10 @@
 <?php
 
-namespace PBOOT\Mod\Post_List\View;
+namespace WPSEEDM\Mod\Post_List\View;
 
 use WPSEEDE\Utils\Type_List;
 
-class Post_List extends \PBOOT\View\View 
+class Post_List extends \WPSEEDM\View\View 
 {
     public function __construct($args, $default_args=[])
     {
@@ -17,10 +17,10 @@ class Post_List extends \PBOOT\View\View
             'items_per_page' => 2,
 
             'post_type' => 'post',
-            'type_class' => '\PBOOT\Type\Post',
+            'type_class' => '\WPSEEDM\Type\Post',
 
             'q_args' => [],
-            'action_name' => 'pboot_load_post_list',
+            'action_name' => 'wpseedm_load_post_list',
 
             'cols_num' => 2,
 
@@ -83,12 +83,12 @@ class Post_List extends \PBOOT\View\View
             'list_view' => $this->args['list_view'],
             'list_args' => $this->orig_args
         ]);
-        $this->setChildPart('filters_html', pboot_get_view($this->args['filters_view'], $this->args['filters_args']));
+        $this->setChildPart('filters_html', wpseedm_get_view($this->args['filters_view'], $this->args['filters_args']));
 
         $items_html = [];
         foreach($this->get_items() as $item)
         {
-            $items_html[] = pboot_get_view($this->args['item_view'], wp_parse_args($this->args['item_args'], [
+            $items_html[] = wpseedm_get_view($this->args['item_view'], wp_parse_args($this->args['item_args'], [
                 'type_class' => $this->args['type_class'],
                 'item' => $item
             ]));
@@ -104,7 +104,7 @@ class Post_List extends \PBOOT\View\View
                 'items_per_page' => $this->args['items_per_page'],
                 'paged' => isset($this->args['q_args']['paged']) ? $this->args['q_args']['paged'] : 1
             ]);
-            $this->setChildPart('pager_html', pboot_get_view($this->args['pager_view'], $this->args['pager_args']));
+            $this->setChildPart('pager_html', wpseedm_get_view($this->args['pager_view'], $this->args['pager_args']));
         }
     }
 }

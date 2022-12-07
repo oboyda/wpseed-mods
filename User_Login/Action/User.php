@@ -1,11 +1,11 @@
 <?php 
 
-namespace PBOOT\Mod\User_Login\Action;
+namespace WPSEEDM\Mod\User_Login\Action;
 
-use PBOOT\Mod\User_Login\Utils\User as Utils_User;
-use PBOOT\Mod\User_Login\Utils\Email as Utils_Email;
-use PBOOT\Type\User as Type_User;
-use PBOOT\Utils\Base as Utils_Base;
+use WPSEEDM\Mod\User_Login\Utils\User as Utils_User;
+use WPSEEDM\Mod\User_Login\Utils\Email as Utils_Email;
+use WPSEEDM\Type\User as Type_User;
+use WPSEEDM\Utils\Base as Utils_Base;
 
 class User extends \WPSEED\Action 
 {
@@ -57,7 +57,7 @@ class User extends \WPSEED\Action
 
         if(!$this->hasErrors())
         {
-            $this->addSuccessMessage(__('Logged in successfully. Redirecting...', 'pboot'));
+            $this->addSuccessMessage(__('Logged in successfully. Redirecting...', 'wpseedm'));
         }
 
         $this->respond();
@@ -86,7 +86,7 @@ class User extends \WPSEED\Action
 
             $type_user = new Type_User($inputs['user_login']);
 
-            $error_message = sprintf(__('An error occurred while resetting the password. Please, <a href="%s">try again later</a>.', 'pboot'), get_site_url());
+            $error_message = sprintf(__('An error occurred while resetting the password. Please, <a href="%s">try again later</a>.', 'wpseedm'), get_site_url());
             $hash_validated = Utils_User::validateHash($inputs['user_login'], $inputs['resetpasshash'], true);
 
             if($hash_validated)
@@ -104,9 +104,9 @@ class User extends \WPSEED\Action
                 
                 wp_clear_auth_cookie();
 
-                $this->addSuccessMessage(__('Password has been reset successfully.', 'pboot'));
+                $this->addSuccessMessage(__('Password has been reset successfully.', 'wpseedm'));
 
-                $this->setRedirect(apply_filters('pboot_user_login_resetpass_redirect', add_query_arg(
+                $this->setRedirect(apply_filters('wpseedm_user_login_resetpass_redirect', add_query_arg(
                     'email', 
                     $type_user->getEmail(), 
                     get_site_url()
@@ -119,7 +119,7 @@ class User extends \WPSEED\Action
         else{
             $hash = Utils_User::addHash($inputs['user_login']);
 
-            $resetpass_url = apply_filters('pboot_user_login_resetpass_url', add_query_arg([
+            $resetpass_url = apply_filters('wpseedm_user_login_resetpass_url', add_query_arg([
                 'email' => $type_user->getEmail(),
                 'resetpasshash' => $hash
             ], get_site_url()));
@@ -137,10 +137,10 @@ class User extends \WPSEED\Action
 
             if($sent)
             {
-                $this->addSuccessMessage(__('Please, check your email to reset the password.', 'pboot'));
+                $this->addSuccessMessage(__('Please, check your email to reset the password.', 'wpseedm'));
             }
             else{
-                $this->addErrorMessage(__('Failed to send password reset email. Please, try again later.', 'pboot'));
+                $this->addErrorMessage(__('Failed to send password reset email. Please, try again later.', 'wpseedm'));
             }
         }
 
@@ -156,7 +156,7 @@ class User extends \WPSEED\Action
             $is_by_admin = current_user_can('manage_options');
 
             $placeholders = [
-                '%user_password%' => ($is_by_admin && isset($userdata['user_pass'])) ? $userdata['user_pass'] : __('Contraseña elegida', 'pboot')
+                '%user_password%' => ($is_by_admin && isset($userdata['user_pass'])) ? $userdata['user_pass'] : __('Contraseña elegida', 'wpseedm')
             ];
 
             Utils_User::sendVerificationEmail($user_id, $placeholders);
@@ -183,10 +183,10 @@ class User extends \WPSEED\Action
 
             if($sent)
             {
-                $this->addSuccessMessage(__('Verification email sent successfully. Please, check your email box.', 'pboot'));            
+                $this->addSuccessMessage(__('Verification email sent successfully. Please, check your email box.', 'wpseedm'));            
             }
             else{
-                $this->addErrorMessage(__('Failed to send verification email. Please, try again later.', 'pboot'));
+                $this->addErrorMessage(__('Failed to send verification email. Please, try again later.', 'wpseedm'));
             }
         }
 
@@ -201,7 +201,7 @@ class User extends \WPSEED\Action
 
     public function restrictWpAdminAccess()
     {
-        $restrict_wp_admin = apply_filters('pboot_user_login_restrict_wp_admin', (
+        $restrict_wp_admin = apply_filters('wpseedm_user_login_restrict_wp_admin', (
             is_admin() 
             && !current_user_can('manage_options') 
             && !wp_doing_ajax()
@@ -215,7 +215,7 @@ class User extends \WPSEED\Action
 
     public function checkUserExistsAndVerified($user, $resp)
     {
-        if(!is_a($user, '\PBOOT\Type\User'))
+        if(!is_a($user, '\WPSEEDM\Type\User'))
         {
             $user = new Type_User($user);
         }
@@ -223,14 +223,14 @@ class User extends \WPSEED\Action
         if(!$user->getId())
         {
             $this->setStatus(false);
-            $this->addErrorMessage(__('User not valid.', 'pboot'));
+            $this->addErrorMessage(__('User not valid.', 'wpseedm'));
             $this->respond();
         }
 
         if(Utils_User::emailVerificationEnabled() && !$user->isEmailVerified())
         {
             $this->setStatus(false);
-            $this->addErrorMessage(__('Email not verified. <a href="#" class="resend-email-verif" data-user_email="' . $user->getEmail() . '">Resend</a> verification email.', 'pboot'));
+            $this->addErrorMessage(__('Email not verified. <a href="#" class="resend-email-verif" data-user_email="' . $user->getEmail() . '">Resend</a> verification email.', 'wpseedm'));
             $this->respond();
         }
     }

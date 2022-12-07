@@ -1,8 +1,8 @@
 <?php
 
-namespace PBOOT\Mod\Form_Advanced\View;
+namespace WPSEEDM\Mod\Form_Advanced\View;
 
-class Form_Time_Picker extends \PBOOT\View\View 
+class Form_Time_Picker extends \WPSEEDM\View\View 
 {
     public function __construct($args)
     {
@@ -10,7 +10,7 @@ class Form_Time_Picker extends \PBOOT\View\View
 
             'input_name' => '',
             'ranges' => false,
-            'label' => __('Select time', 'pboot'), 
+            'label' => __('Select time', 'wpseedm'), 
             'time_fraction' => 60, # 60, 30, 15,
             'value' => ''
         ]);

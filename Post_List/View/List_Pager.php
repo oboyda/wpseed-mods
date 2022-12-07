@@ -1,8 +1,8 @@
 <?php
 
-namespace PBOOT\Mod\Post_List\View;
+namespace WPSEEDM\Mod\Post_List\View;
 
-class List_Pager extends \PBOOT\View\View 
+class List_Pager extends \WPSEEDM\View\View 
 {
     var $pages_max;
 

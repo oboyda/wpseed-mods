@@ -1,16 +1,16 @@
 <?php 
 
-namespace PBOOT\Mod\Action_Email\Utils;
+namespace WPSEEDM\Mod\Action_Email\Utils;
 
-use PBOOT\Mod\Action_Email\Type\Email as Type_Email;
+use WPSEEDM\Mod\Action_Email\Type\Email as Type_Email;
 
 class Email 
 {
     static function getEmailActions()
     {
-        return apply_filters('pboot_action_email_actions', [
-            'resetpass' => __('Reset password', 'pboot'),
-            'email_verification' => __('Verification emil', 'pboot'),
+        return apply_filters('wpseedm_action_email_actions', [
+            'resetpass' => __('Reset password', 'wpseedm'),
+            'email_verification' => __('Verification emil', 'wpseedm'),
         ]);
     }
 
@@ -24,12 +24,12 @@ class Email
 
     static function getFromName()
     {
-        return apply_filters('pboot_action_email_from_name', get_option('blogname'));
+        return apply_filters('wpseedm_action_email_from_name', get_option('blogname'));
     }
 
     static function getFromEmail()
     {
-        return apply_filters('pboot_action_email_from_email', get_option('admin_email'));
+        return apply_filters('wpseedm_action_email_from_email', get_option('admin_email'));
     }
 
     static function getEmailByAction($action)
@@ -57,7 +57,7 @@ class Email
     {
         $email_post = self::getEmailByAction($action);
 
-        if(!is_a($email_post, '\PBOOT\Type\Email'))
+        if(!is_a($email_post, '\WPSEEDM\Type\Email'))
         {
             return false;
         }

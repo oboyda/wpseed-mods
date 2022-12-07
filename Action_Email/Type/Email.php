@@ -1,9 +1,9 @@
 <?php 
 
-namespace PBOOT\Mod\Action_Email\Type;
+namespace WPSEEDM\Mod\Action_Email\Type;
 
-use PBOOT\Type\Post;
-use PBOOT\Mod\Action_Email\Utils\Email as Utils_Email;
+use WPSEEDM\Type\Post;
+use WPSEEDM\Mod\Action_Email\Utils\Email as Utils_Email;
 
 class Email extends Post
 {
@@ -41,7 +41,7 @@ class Email extends Post
 
     protected function replacePlaceholders($str, $placeholder_args=[])
     {
-        $placeholder_args = apply_filters('pboot_action_email_placeholders', array_merge(
+        $placeholder_args = apply_filters('wpseedm_action_email_placeholders', array_merge(
             Utils_Email::getGlobalPlaceholders(), 
             $placeholder_args,
             $str,

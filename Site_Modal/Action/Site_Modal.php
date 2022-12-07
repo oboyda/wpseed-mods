@@ -1,6 +1,6 @@
 <?php 
 
-namespace PBOOT\Mod\Site_Modal\Action;
+namespace WPSEEDM\Mod\Site_Modal\Action;
 
 class Site_Modal extends \WPSEED\Action 
 {
@@ -13,6 +13,6 @@ class Site_Modal extends \WPSEED\Action
 
     public function printModalView()
     {
-        pboot_print_view('Site_Modal/site-modal');
+        wpseedm_print_view('Site_Modal/site-modal');
     }
 }

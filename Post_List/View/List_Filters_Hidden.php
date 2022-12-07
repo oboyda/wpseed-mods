@@ -1,17 +1,17 @@
 <?php
 
-namespace PBOOT\Mod\Post_List\View;
+namespace WPSEEDM\Mod\Post_List\View;
 
 use WPSEEDE\Utils\Base as Utils_Base;
 
-class List_Filters_Hidden extends \PBOOT\View\View 
+class List_Filters_Hidden extends \WPSEEDM\View\View 
 {
     public function __construct($args)
     {
         parent::__construct($args, [
             
             'paged' => 1,
-            'action_name' => 'pboot_load_post_list',
+            'action_name' => 'wpseedm_load_post_list',
 
             'list_view' => '',
             'list_args' => []

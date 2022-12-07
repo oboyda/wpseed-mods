@@ -1,8 +1,8 @@
 <?php
 
-namespace PBOOT\Mod\Form_Advanced\View;
+namespace WPSEEDM\Mod\Form_Advanced\View;
 
-class Form_Input_Dates extends \PBOOT\View\View 
+class Form_Input_Dates extends \WPSEEDM\View\View 
 {
     public function __construct($args)
     {
@@ -10,8 +10,8 @@ class Form_Input_Dates extends \PBOOT\View\View
             
             'input_name_from' => '',
             'input_name_till' => '',
-            'label_from' => __('Date from', 'pboot'),
-            'label_till' => __('Date till', 'pboot')
+            'label_from' => __('Date from', 'wpseedm'),
+            'label_till' => __('Date till', 'wpseedm')
         ]);
     }
 }

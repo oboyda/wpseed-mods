@@ -1,9 +1,9 @@
 <?php 
 
-namespace PBOOT\Mod\Action_Email\Action;
+namespace WPSEEDM\Mod\Action_Email\Action;
 
-use PBOOT\Mod\Action_Email\Utils\Email as Utils_Email;
-use PBOOT\Mod\Action_Email\Type\Email as Type_Email;
+use WPSEEDM\Mod\Action_Email\Utils\Email as Utils_Email;
+use WPSEEDM\Mod\Action_Email\Type\Email as Type_Email;
 
 class Email_Admin extends \WPSEED\Action 
 {
@@ -19,7 +19,7 @@ class Email_Admin extends \WPSEED\Action
     {
         add_meta_box(
             'email-actions-metabox', 
-            __('Email action', 'pboot'), 
+            __('Email action', 'wpseedm'), 
             [$this, 'renderMetaboxEmailActions'], 
             'action_email',
             'side'
@@ -28,7 +28,7 @@ class Email_Admin extends \WPSEED\Action
 
     public function saveMetaboxEmailActionsData($post_id)
     {
-        $email_action = $this->getReq('pboot_email_action');
+        $email_action = $this->getReq('wpseedm_email_action');
         
         if(isset($email_action))
         {
@@ -41,7 +41,7 @@ class Email_Admin extends \WPSEED\Action
             }
         }
 
-        $inc_header = (bool)filter_input(INPUT_POST, 'pboot_email_inc_default_header');
+        $inc_header = (bool)filter_input(INPUT_POST, 'wpseedm_email_inc_default_header');
 
         if($inc_header)
         {
@@ -51,7 +51,7 @@ class Email_Admin extends \WPSEED\Action
             delete_post_meta($post_id, '_inc_default_header');
         }
 
-        $inc_footer = (bool)filter_input(INPUT_POST, 'pboot_email_inc_default_footer');
+        $inc_footer = (bool)filter_input(INPUT_POST, 'wpseedm_email_inc_default_footer');
 
         if($inc_footer)
         {
@@ -68,7 +68,7 @@ class Email_Admin extends \WPSEED\Action
         ?>
 
         <p>
-            <select name="pboot_email_action">
+            <select name="wpseedm_email_action">
                 <option value="">--</option>
                 <?php foreach(Utils_Email::getEmailActions() as $h => $action_name): 
                     $selected = ($h == $type_email->getAction()) ? ' selected' : '';
@@ -80,14 +80,14 @@ class Email_Admin extends \WPSEED\Action
 
         <!--<p>
             <label>
-                <input type="checkbox" name="pboot_email_inc_default_header" value="1" <?php checked($type_email->hasDefaultHeader(), true); ?> />
-                <?php _e('Include default header.', 'pboot'); ?>
+                <input type="checkbox" name="wpseedm_email_inc_default_header" value="1" <?php checked($type_email->hasDefaultHeader(), true); ?> />
+                <?php _e('Include default header.', 'wpseedm'); ?>
             </label>
         </p>
         <p>
             <label>
-                <input type="checkbox" name="pboot_email_inc_default_footer" value="1"<?php checked($type_email->hasDefaultFooter(), true); ?> />
-                <?php _e('Include default footer.', 'pboot'); ?>
+                <input type="checkbox" name="wpseedm_email_inc_default_footer" value="1"<?php checked($type_email->hasDefaultFooter(), true); ?> />
+                <?php _e('Include default footer.', 'wpseedm'); ?>
             </label>
         </p>-->
         <?php 

@@ -6,7 +6,7 @@ jQuery(function($){
     $(document.body).on("click", ".open-login", function(e){
         e.preventDefault();
 
-        $(document.body).triggerHandler("pboot_open_site_modal_load", {
+        $(document.body).triggerHandler("wpseedm_open_site_modal_load", {
             viewName: "User_Login/login-form"
         });
     });
@@ -18,7 +18,7 @@ jQuery(function($){
     $(document.body).on("click", "a.resend-email-verif:not(.disabled)", function(e){
         e.preventDefault();
 
-        if(typeof pbootIndexVars.ajaxurl == 'undefined')
+        if(typeof wpseedmIndexVars.ajaxurl == 'undefined')
         {
             return;
         }
@@ -28,7 +28,7 @@ jQuery(function($){
 
         btn.addClass("disabled");
 
-        $.post(pbootIndexVars.ajaxurl, {
+        $.post(wpseedmIndexVars.ajaxurl, {
 
             action: "resend_verif_email",
             user: btn.data("user_email")
@@ -36,7 +36,7 @@ jQuery(function($){
 
             btn.removeClass("disabled", false);
 
-            form.trigger("pboot_show_form_status", [resp]);
+            form.trigger("wpseedm_show_form_status", [resp]);
 
         }, "json");
     });

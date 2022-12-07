@@ -1,8 +1,8 @@
 <?php
 
-namespace PBOOT\Mod\Tabs_Content\View;
+namespace WPSEEDM\Mod\Tabs_Content\View;
 
-class Tabs_Content extends \PBOOT\View\View 
+class Tabs_Content extends \WPSEEDM\View\View 
 {
     public function __construct($args)
     {
