@@ -45,14 +45,6 @@ class Post_List extends \WPSEEDM\View\View
         {
             $this->setItems();
         }
-
-        // if($this->args['post_type'] == 'product')
-        // {
-        //     file_put_contents(ABSPATH . '/__debug.txt', print_r([
-        //         time(),
-        //         $this->args
-        //     ], true));
-        // }
     }
 
     protected function setItems()
