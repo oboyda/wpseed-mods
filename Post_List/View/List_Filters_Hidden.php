@@ -6,16 +6,16 @@ use WPSEEDE\Utils\Base as Utils_Base;
 
 class List_Filters_Hidden extends \WPSEEDM\View\View 
 {
-    public function __construct($args)
+    public function __construct($args, $default_args=[])
     {
-        parent::__construct($args, [
+        parent::__construct($args, wp_parse_args($default_args, [
             
             'paged' => 1,
             'action_name' => 'wpseedm_load_post_list',
 
             'list_view' => '',
             'list_args' => []
-        ]);
+        ]));
 
         $this->filterListArgs();
     }
