@@ -30,7 +30,7 @@ jQuery(function($){
 
         $.post(wpseedmIndexVars.ajaxurl, {
 
-            action: "resend_verif_email",
+            action: "wpseedm_resend_verif_email",
             user: btn.data("user_email")
         }, function(resp){
 

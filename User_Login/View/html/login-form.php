@@ -13,12 +13,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-input">
-                                    <input type="text" name="login" placeholder="<?php _e('Email', 'wpseedm'); ?>" required />
+                                    <input type="text" name="user_login" placeholder="<?php _e('Email', 'wpseedm'); ?>" required />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-input">
-                                    <input type="password" name="password" placeholder="<?php _e('Password', 'wpseedm'); ?>" required autocomplete="off" />
+                                    <input type="password" name="user_pass" placeholder="<?php _e('Password', 'wpseedm'); ?>" required autocomplete="off" />
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="action" value="user_login" />
+                    <input type="hidden" name="action" value="wpseedm_user_login" />
 
                     <div class="messages-cont"></div>
                 </form>
@@ -69,7 +69,7 @@
                         <a href="#" class="switch-content-btn" data-content_name="content-login-form"><?php _e('Back to login', 'wpseedm'); ?></a>
                     </div>
 
-                    <input type="hidden" name="action" value="resetpass" />
+                    <input type="hidden" name="action" value="wpseedm_resetpass" />
 
                     <div class="messages-cont"></div>
                 </form>
