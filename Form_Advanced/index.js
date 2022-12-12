@@ -260,6 +260,10 @@ jQuery(function($)
     --------------------------------------------------
     */
     $("form.ajax-form, form.ajax-form-std").ajaxFormInit();
+    $(document.body).on("view_loaded", function(e, view, viewName){
+
+        view.find("form.ajax-form, form.ajax-form-std").ajaxFormInit();
+    });
 
     /*
     .view.form-nice-dropdown
