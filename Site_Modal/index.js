@@ -20,6 +20,7 @@ jQuery(function($){
                 modalTitle: "",
                 modalElement: "",
                 modalSizeLarge: false,
+                closeOnAjaxFormSuccess: false,
                 ..._args
             };
 
@@ -34,6 +35,14 @@ jQuery(function($){
 
             // Show modal
             btModal.show();
+
+            // Close modal on wpseedm_submit_ajax_form_success event
+            if(args.closeOnAjaxFormSuccess)
+            {
+                modalBodyElem.find("form.ajax-form").on("wpseedm_submit_ajax_form_success", function(){
+                    btModal.hide();
+                });
+            }
         });
 
         $(document.body).on("wpseedm_open_site_modal_load", function(e, _args={}){
@@ -44,6 +53,7 @@ jQuery(function($){
                 viewName: "",
                 viewArgs: {},
                 viewArgsCast: {},
+                closeOnAjaxFormSuccess: false,
                 ..._args
             };
 
@@ -63,6 +73,14 @@ jQuery(function($){
             // Load view in modal body
             modalBodyElem.viewAjaxLoad("wpseedm_load_view", args.viewName, args.viewArgs, args.viewArgsCast, function(resp){
                 modalElem.removeClass("loading");
+
+                // Close modal on wpseedm_submit_ajax_form_success event
+                if(args.closeOnAjaxFormSuccess)
+                {
+                    modalBodyElem.find("form.ajax-form").on("wpseedm_submit_ajax_form_success", function(){
+                        btModal.hide();
+                    });
+                }
             });
         });
 
