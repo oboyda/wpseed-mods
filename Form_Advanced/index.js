@@ -259,10 +259,10 @@ jQuery(function($)
     .ajax-form
     --------------------------------------------------
     */
-    $("form.ajax-form, form.ajax-form-std").ajaxFormInit();
+    $("form.ajax-form, form.ajax-form").ajaxFormInit();
     $(document.body).on("view_loaded", function(e, view, viewName){
 
-        view.find("form.ajax-form, form.ajax-form-std").ajaxFormInit();
+        view.find("form.ajax-form, form.ajax-form").ajaxFormInit();
     });
 
     /*

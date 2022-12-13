@@ -8,7 +8,7 @@
 
                 <h3 class="form-title"><?php _e('Log in', 'wpseedm'); ?></h3>
 
-                <form class="ajax-form-std login--form" method="POST">
+                <form class="ajax-form login--form" method="POST">
                     <div class="form-block">
                         <div class="row">
                             <div class="col-md-6">
@@ -50,7 +50,7 @@
 
                 <h3 class="form-title"><?php _e('Reset password', 'wpseedm'); ?></h3>
 
-                <form class="ajax-form-std resetpass-form" method="POST">
+                <form class="ajax-form resetpass-form" method="POST">
                     <div class="form-block">
                         <div class="row">
                             <div class="col-md-6">
