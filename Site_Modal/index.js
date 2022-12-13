@@ -14,13 +14,13 @@ jQuery(function($){
 
         const btModal = new Modal(modalElem.get(0));
 
-        $(document.body).on("wpseedm_open_site_modal", function(e, _args={}){
+        $(document.body).on("ofrp_open_site_modal", function(e, _args={}){
 
             const args = {
                 modalTitle: "",
                 modalElement: "",
                 modalSizeLarge: false,
-                closeOnAjaxFormSuccess: false,
+                // closeOnAjaxFormSuccess: false,
                 ..._args
             };
 
@@ -36,16 +36,16 @@ jQuery(function($){
             // Show modal
             btModal.show();
 
-            // Close modal on wpseedm_submit_ajax_form_success event
-            if(args.closeOnAjaxFormSuccess)
-            {
-                modalBodyElem.find("form.ajax-form").on("wpseedm_submit_ajax_form_success", function(){
-                    btModal.hide();
-                });
-            }
+            // Close modal on ofrp_submit_ajax_form_success event
+            // if(args.closeOnAjaxFormSuccess)
+            // {
+            //     modalBodyElem.find("form.ajax-form").on("ofrp_submit_ajax_form_success", function(){
+            //         btModal.hide();
+            //     });
+            // }
         });
 
-        $(document.body).on("wpseedm_open_site_modal_load", function(e, _args={}){
+        $(document.body).on("ofrp_open_site_modal_load", function(e, _args={}){
 
             const args = {
                 modalTitle: "",
@@ -53,7 +53,8 @@ jQuery(function($){
                 viewName: "",
                 viewArgs: {},
                 viewArgsCast: {},
-                closeOnAjaxFormSuccess: false,
+                loadedCallback: null,
+                // closeOnAjaxFormSuccess: false,
                 ..._args
             };
 
@@ -71,15 +72,20 @@ jQuery(function($){
             btModal.show();
 
             // Load view in modal body
-            modalBodyElem.viewAjaxLoad("wpseedm_load_view", args.viewName, args.viewArgs, args.viewArgsCast, function(resp){
+            modalBodyElem.viewAjaxLoad("ofrp_load_view", args.viewName, args.viewArgs, args.viewArgsCast, function(resp){
                 modalElem.removeClass("loading");
 
-                // Close modal on wpseedm_submit_ajax_form_success event
-                if(args.closeOnAjaxFormSuccess)
+                // Close modal on ofrp_submit_ajax_form_success event
+                // if(args.closeOnAjaxFormSuccess)
+                // {
+                //     modalBodyElem.find("form.ajax-form").on("ofrp_submit_ajax_form_success", function(){
+                //         btModal.hide();
+                //     });
+                // }
+
+                if(typeof args.loadedCallback === "function")
                 {
-                    modalBodyElem.find("form.ajax-form").on("wpseedm_submit_ajax_form_success", function(){
-                        btModal.hide();
-                    });
+                    args.loadedCallback(btModal, resp);
                 }
             });
         });
