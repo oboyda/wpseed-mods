@@ -20,7 +20,7 @@ jQuery(function($){
                 modalTitle: "",
                 modalElement: "",
                 modalSizeLarge: false,
-                // closeOnAjaxFormSuccess: false,
+                closeOnAjaxFormSuccess: false,
                 ..._args
             };
 
@@ -37,12 +37,12 @@ jQuery(function($){
             btModal.show();
 
             // Close modal on ofrp_submit_ajax_form_success event
-            // if(args.closeOnAjaxFormSuccess)
-            // {
-            //     modalBodyElem.find("form.ajax-form").on("ofrp_submit_ajax_form_success", function(){
-            //         btModal.hide();
-            //     });
-            // }
+            if(args.closeOnAjaxFormSuccess)
+            {
+                modalBodyElem.find("form.ajax-form").on("ofrp_submit_ajax_form_success", function(){
+                    btModal.hide();
+                });
+            }
         });
 
         $(document.body).on("ofrp_open_site_modal_load", function(e, _args={}){
@@ -54,7 +54,7 @@ jQuery(function($){
                 viewArgs: {},
                 viewArgsCast: {},
                 loadedCallback: null,
-                // closeOnAjaxFormSuccess: false,
+                closeOnAjaxFormSuccess: false,
                 ..._args
             };
 
@@ -76,16 +76,17 @@ jQuery(function($){
                 modalElem.removeClass("loading");
 
                 // Close modal on ofrp_submit_ajax_form_success event
-                // if(args.closeOnAjaxFormSuccess)
-                // {
-                //     modalBodyElem.find("form.ajax-form").on("ofrp_submit_ajax_form_success", function(){
-                //         btModal.hide();
-                //     });
-                // }
+                if(args.closeOnAjaxFormSuccess)
+                {
+                    modalBodyElem.find("form.ajax-form").on("ofrp_submit_ajax_form_success", function(){
+                        btModal.hide();
+                    });
+                }
 
+                //Callback function
                 if(typeof args.loadedCallback === "function")
                 {
-                    args.loadedCallback(btModal, resp);
+                    args.loadedCallback(btModal, modalElem, resp);
                 }
             });
         });
