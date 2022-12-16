@@ -23,9 +23,11 @@
         {
             $classes[] = 'has-icon';
         }
+
+        $input_name = $view->has_multiple() ? $view->get_input_name() . '[]' : $view->get_input_name();
         ?>
     <div class="<?php echo implode(' ', $classes); ?>">
-        <input type="<?php echo $view->getInputType(); ?>" name="<?php echo $view->get_input_name(); ?>" id="<?php echo $option_id; ?>" class="user-input <?php if($view->has_change_submit()) echo 'change-submit'; ?>" value="<?php echo $option['value']; ?>"<?php echo $checked . $required; ?>> 
+        <input type="<?php echo $view->getInputType(); ?>" name="<?php echo $input_name; ?>" id="<?php echo $option_id; ?>" class="user-input <?php if($view->has_change_submit()) echo 'change-submit'; ?>" value="<?php echo $option['value']; ?>"<?php echo $checked . $required; ?>> 
         <label for="<?php echo $option_id; ?>">
             <?php if(!empty($option['icon_html'])): ?>
             <span class="label-icon"><?php echo $option['icon_html']; ?></span>
