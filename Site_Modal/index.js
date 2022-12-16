@@ -14,7 +14,7 @@ jQuery(function($){
 
         const btModal = new Modal(modalElem.get(0));
 
-        $(document.body).on("ofrp_open_site_modal", function(e, _args={}){
+        $(document.body).on("wpseedm_open_site_modal", function(e, _args={}){
 
             const args = {
                 modalTitle: "",
@@ -36,16 +36,16 @@ jQuery(function($){
             // Show modal
             btModal.show();
 
-            // Close modal on ofrp_submit_ajax_form_success event
+            // Close modal on wpseedm_submit_ajax_form_success event
             if(args.closeOnAjaxFormSuccess)
             {
-                modalBodyElem.find("form.ajax-form").on("ofrp_submit_ajax_form_success", function(){
+                modalBodyElem.find("form.ajax-form").on("wpseedm_submit_ajax_form_success", function(){
                     btModal.hide();
                 });
             }
         });
 
-        $(document.body).on("ofrp_open_site_modal_load", function(e, _args={}){
+        $(document.body).on("wpseedm_open_site_modal_load", function(e, _args={}){
 
             const args = {
                 modalTitle: "",
@@ -72,13 +72,13 @@ jQuery(function($){
             btModal.show();
 
             // Load view in modal body
-            modalBodyElem.viewAjaxLoad("ofrp_load_view", args.viewName, args.viewArgs, args.viewArgsCast, function(resp){
+            modalBodyElem.viewAjaxLoad("wpseedm_load_view", args.viewName, args.viewArgs, args.viewArgsCast, function(resp){
                 modalElem.removeClass("loading");
 
-                // Close modal on ofrp_submit_ajax_form_success event
+                // Close modal on wpseedm_submit_ajax_form_success event
                 if(args.closeOnAjaxFormSuccess)
                 {
-                    modalBodyElem.find("form.ajax-form").on("ofrp_submit_ajax_form_success", function(){
+                    modalBodyElem.find("form.ajax-form").on("wpseedm_submit_ajax_form_success", function(){
                         btModal.hide();
                     });
                 }
