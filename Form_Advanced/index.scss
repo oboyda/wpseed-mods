@@ -116,7 +116,7 @@
 
     .nice-checkbox {
         display: block;
-        padding: 0 0.75rem 0.75rem 0;
+        padding: 0 0 0.75rem;
 
         label {
             font-size: 0.857rem;
@@ -125,6 +125,7 @@
     }
     &.opts-inline .nice-checkbox {
         display: inline-block;
+        padding: 0 0.75rem 0.75rem 0;
     }
 }
 

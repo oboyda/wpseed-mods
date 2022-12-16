@@ -2,7 +2,8 @@
 
 namespace WPSEEDM\Mod\Post_List\View;
 
-use WPSEEDE\Utils\Type_List;
+use WPSEEDE\Utils\Type_List as Utils_Type_List;
+use WPSEEDE\Utils\Type as Utils_Type;
 
 class Post_List extends \WPSEEDM\View\View 
 {
@@ -16,7 +17,7 @@ class Post_List extends \WPSEEDM\View\View
             'items_total' => 0,
             'items_per_page' => 2,
 
-            'post_type' => 'post',
+            // 'post_type' => 'post',
             'type_class' => '\WPSEEDM\Type\Post',
 
             'q_args' => [],
@@ -55,12 +56,13 @@ class Post_List extends \WPSEEDM\View\View
         {
             $this->args['q_args'] = wp_parse_args($this->args['q_args'], [
                 'paged' => 1,
-                'post_type' => $this->args['post_type'],
+                // 'post_type' => $this->args['post_type'],
                 'orderby' => 'title',
                 'posts_per_page' => $this->args['items_per_page']
             ]);
+            $this->args['q_args'] = wp_parse_args($this->args['q_args'], Utils_Type::getTypeRequestArgs($this->args['type_class']));
     
-            $items = Type_List::getItems($this->args['q_args'], $this->args['type_class']);
+            $items = Utils_Type_List::getItems($this->args['q_args'], $this->args['type_class']);
 
             $this->args['items'] = $items['items'];
             $this->args['items_total'] = $items['items_total'];
