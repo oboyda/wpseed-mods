@@ -43,7 +43,10 @@ jQuery.fn.extend({
                             location.reload();
                         }
         
-                        form.get(0).reset();
+                        if(form.hasClass("submit-reset"))
+                        {
+                            form.get(0).reset();
+                        }
                     }
     
                     btnSubmit.prop("disabled", false);
