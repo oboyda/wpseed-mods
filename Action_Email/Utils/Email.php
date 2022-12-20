@@ -10,7 +10,7 @@ class Email
     {
         return apply_filters('wpseedm_action_email_actions', [
             'resetpass' => __('Reset password', 'wpseedm'),
-            'email_verification' => __('Verification emil', 'wpseedm'),
+            'email_verification' => __('Verification email', 'wpseedm'),
         ]);
     }
 
