@@ -78,7 +78,8 @@ jQuery.fn.extend({
             -------------------------
             */
     
-            const getFileSummary = function(files){
+            function getFileSummary(files)
+            {
                 let summ = [];
                 const filesArr = Array.isArray(files) ? files : Array.from(files);
                 filesArr.forEach((file) => {
@@ -89,7 +90,14 @@ jQuery.fn.extend({
                 });
                 return summ.join(', ');
             }
-    
+
+            function resetFileInput(fileInput)
+            {
+                // fileInput.get(0).files = new FileList;
+                fileInput.val("");
+                fileInput.trigger("change");
+            }
+
             form.find(".view.form-files-drop").each(function(){
     
                 const filesDropView = jQuery(this);
@@ -98,9 +106,10 @@ jQuery.fn.extend({
                 const dropSummary = filesDropView.find(".drop-summary");
                 const fileInput = filesDropView.find("input[type='file']");
                 const fileInputElem = fileInput.get(0);
+                const fileClear = filesDropView.find(".clear-file .clear-btn");
     
-                if(dropArea.length && fileInput.length)
-                {
+                // if(dropArea.length && fileInput.length)
+                // {
                     dropArea.on("dragenter", function(e){
                         dropArea.addClass("file-over");
                     });
@@ -120,7 +129,7 @@ jQuery.fn.extend({
                         if((fileInputElem.multiple && filesArr.length > 0) || (!fileInputElem.multiple && filesArr.length === 1))
                         {
                             fileInputElem.files = _e.dataTransfer.files;
-                            fileInput.triggerHandler("change");
+                            fileInput.trigger("change");
                         }
                     });
     
@@ -132,7 +141,11 @@ jQuery.fn.extend({
                         }
                         dropSummary.html(getFileSummary(fileInputElem.files));
                     });
-                }
+
+                    fileClear.on("click", function(){
+                        resetFileInput(fileInput);
+                    });
+                // }
             });
     
             /*
@@ -342,7 +355,7 @@ jQuery(function($)
             inputs.filter(".user-input:checked").prop("checked", false);
             updateLabelText();
             // dropdownOptions.find("input.user-input").first().triggerHandler("change");
-            inputs.filter(".user-input").first().triggerHandler("change");
+            inputs.filter(".user-input").first().trigger("change");
         }
 
         function toggle()

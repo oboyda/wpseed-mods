@@ -57,7 +57,7 @@ class Email
     {
         $email_post = self::getEmailByAction($action);
 
-        if(!is_a($email_post, '\WPSEEDM\Type\Email'))
+        if(!is_a($email_post, '\WPSEEDM\Mod\Action_Email\Type\Email'))
         {
             return false;
         }
