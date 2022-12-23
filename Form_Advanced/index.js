@@ -666,4 +666,42 @@ jQuery(function($)
             });
         }
     });
+
+    /*
+    .view.form-files-preview
+    --------------------------------------------------
+    */
+    $(document.body).viewAddLoadedListener("view_loaded_form-files-preview", function(e, view){
+
+        const itemsOrderIput = view.find(".order-input");
+        const isSortable = view.hasClass("is-sortable");
+
+        function setItemsOrder()
+        {
+            if(!isSortable)
+            {
+                return;
+            }
+
+            let orderIds = [];
+            const fileItems = view.find(".file-item");
+            fileItems.each(function(){
+                orderIds.push($(this).data("id"));
+            });
+
+            itemsOrderIput.val(orderIds.join(","));
+            itemsOrderIput.trigger("change");
+        }
+
+        if(view.hasClass("is-sortable") && typeof $.fn.sortable !== "undefined")
+        {
+            view.find(".file-items").sortable({
+                // containment: "parent"
+                stop: function(e, ui){
+                    setItemsOrder();
+                }
+            });
+        }
+    });
+
 });
