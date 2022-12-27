@@ -10,12 +10,14 @@ class Form_Nice_Dropdown extends \WPSEEDM\View\View
 
             'enabled' => true,
             'input_name' => '',
+            'input_data_atts' => [],
             'multiple' => false,
-            'label' => __('Select', 'wpseedm'),
+            'label' => __('Select', 'ofrp'),
             'update_label' => true,
             'empty_name' => '',
             'selected' => '',
             'options' => [],
+            
             'parent' => '',
             'parent_value' => '',
             'parent_enabled' => [],
@@ -70,7 +72,10 @@ class Form_Nice_Dropdown extends \WPSEEDM\View\View
                 'class' => ''
             ]) : [
                 'name' => $option,
-                'value' => $key
+                'value' => $key,
+                'url' => '',
+                'target' => '_self',
+                'class' => ''
             ];
 
             $_options[] = $_option;
