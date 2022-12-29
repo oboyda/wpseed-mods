@@ -10,6 +10,8 @@ class List_Filters_Hidden extends \WPSEEDM\View\View
     {
         parent::__construct($args, wp_parse_args($default_args, [
             
+            'q_args' => [],
+            
             'paged' => 1,
             'action_name' => 'wpseedm_load_post_list',
 
