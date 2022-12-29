@@ -60,7 +60,7 @@ class Post_List extends \WPSEEDM\View\View
                 'orderby' => 'title',
                 'posts_per_page' => $this->args['items_per_page']
             ]);
-            $this->args['q_args'] = wp_parse_args($this->args['q_args'], Utils_Type::getTypeRequestArgs($this->args['type_class'], [], true));
+            $this->args['q_args'] = wp_parse_args(Utils_Type::getTypeRequestArgs($this->args['type_class'], [], true), $this->args['q_args']);
     
             $items = Utils_Type_List::getItems($this->args['q_args'], $this->args['type_class']);
 
