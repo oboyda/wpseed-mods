@@ -200,7 +200,7 @@ jQuery.fn.extend({
                 dateFromFieldDisplay.on("blur", function(){
                     setTimeout(function(){
                         datepickerFromElem.addClass("d-none");
-                    }, 1000);
+                    }, 500);
                 });
     
                 if(
