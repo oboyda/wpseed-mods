@@ -1,0 +1,1 @@
+<?php echo wpseedm_print_view('form-nice-checkbox'); ?>
