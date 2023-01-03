@@ -2,7 +2,7 @@
 
 namespace WPSEEDM\Mod\Form_Advanced\View;
 
-class Form_Files_Drop extends \WPSEEDE\View 
+class Form_Files_Drop extends \WPSEEDM\View\View 
 {
     public function __construct($args)
     {

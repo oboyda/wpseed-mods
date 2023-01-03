@@ -2,7 +2,7 @@
 
 namespace WPSEEDM\Mod\Form_Advanced\View;
 
-class Form_Nice_Dropdown extends \WPSEEDE\View 
+class Form_Nice_Dropdown extends \WPSEEDM\View\View 
 {
     public function __construct($args)
     {

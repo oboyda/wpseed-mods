@@ -2,7 +2,7 @@
 
 namespace WPSEEDM\Mod\Form_Advanced\View;
 
-class Form_Files_Preview extends \WPSEEDE\View 
+class Form_Files_Preview extends \WPSEEDM\View\View 
 {
     public function __construct($args)
     {
