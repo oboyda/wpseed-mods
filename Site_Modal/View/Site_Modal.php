@@ -2,7 +2,7 @@
 
 namespace WPSEEDM\Mod\Site_Modal\View;
 
-class Site_Modal extends \WPSEEDM\View\View 
+class Site_Modal extends \WPSEEDE\View 
 {
     public function __construct($args)
     {

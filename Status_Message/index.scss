@@ -1,19 +1,50 @@
 /*
-* .view.status-message
-* ----------------------------------------
+.view.status-message
+----------------------------------------
 */
 
 .view.status-message {
-    padding: 0 0 2rem;
+    font-size: 1rem;
+    line-height: 1.4em;
+
+    margin: 0 0 1rem;
+
     .message {
-        padding: 2rem 3rem;
-        &.message-success {
-            border-top: 3px solid #95b392;
-            background-color: #c5ebc1;
+        padding: 0.5em 1em;
+        border-left: 3px solid #333;
+        min-height: 3em;
+    }
+
+    &.type-success {
+        .status-icon {
+            color: #95b392;
         }
-        &.message-error {
-            border-top: 3px solid #ee9696;
-            background-color: #f5bcbc;
+        .message {
+            border-left-color: #95b392;
+        }
+    }
+    &.type-error {
+        .status-icon {
+            color: #ee9696;
+        }
+        .message {
+            border-left-color: #ee9696;
+        }
+    }
+
+    &.has-icon {
+        padding-left: 3.5em;
+
+        .status-icon {
+
+            padding: 0.5em;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            i {
+                font-size: 2em;
+            }
         }
     }
 }

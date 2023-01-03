@@ -2,7 +2,7 @@
 
 namespace WPSEEDM\Mod\Form_Advanced\View;
 
-class Form_Nice_Checkbox extends \WPSEEDM\View\View 
+class Form_Nice_Checkbox extends \WPSEEDE\View 
 {
     public function __construct($args, $args_default=[])
     {

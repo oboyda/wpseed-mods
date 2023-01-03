@@ -2,7 +2,7 @@
 
 namespace WPSEEDM\Mod\Form_Advanced\View;
 
-class Form_Input_Location extends \WPSEEDM\View\View 
+class Form_Input_Location extends \WPSEEDE\View 
 {
     public function __construct($args)
     {

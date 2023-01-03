@@ -2,7 +2,7 @@
 
 namespace WPSEEDM\Mod\Form_Advanced\View;
 
-class Form_Input_Dates extends \WPSEEDM\View\View 
+class Form_Input_Dates extends \WPSEEDE\View 
 {
     public function __construct($args)
     {
