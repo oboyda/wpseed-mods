@@ -80,24 +80,26 @@ class Post_List extends \WPSEEDM\View\View
         ]);
         $this->setChildPart('filters_html', wpseedm_get_view($this->args['filters_view'], $this->args['filters_args']));
 
-        $items_html = [];
+        $items_html = '';
         if(!empty($this->args['items']))
         {
+            $_items = [];
             foreach($this->get_items() as $item)
             {
-                $items_html[] = wpseedm_get_view($this->args['item_view'], wp_parse_args($this->args['item_args'], [
+                $_items[] = wpseedm_get_view($this->args['item_view'], wp_parse_args($this->args['item_args'], [
                     // 'type_class' => $this->args['type_class'],
                     'item' => $item
                 ]));
             } 
-            $this->setChildPart('items_html', $this->renderItemsCols($items_html, $this->args['cols_num'], 'lg'));
+            $items_html = $this->renderItemsCols($_items, $this->args['cols_num'], 'lg');
         }
         elseif($this->args['list_nofound_view'] && $this->args['q_args']['paged'] === 1)
         {
-            $this->setChildPart('items_html', wpseedm_get_view($this->args['list_nofound_view'], [
+            $items_html = wpseedm_get_view($this->args['list_nofound_view'], [
                 'nofound_text' => $this->args['list_nofound_text']
-            ]));
+            ]);
         }
+        $this->setChildPart('items_html', $items_html);
 
         if($this->args['show_pager'])
         {
