@@ -7,9 +7,9 @@ use WPSEEDE\Utils\Type as Utils_Type;
 
 class Post_List extends \WPSEEDM\View\View 
 {
-    public function __construct($args, $default_args=[])
+    public function __construct($args, $args_default=[])
     {
-        $default_args = wp_parse_args($default_args, [
+        parent::__construct($args, wp_parse_args($args_default, [
             
             'list_title' => '',
 
@@ -40,9 +40,7 @@ class Post_List extends \WPSEEDM\View\View
             'pager_args' => [],
 
             'set_items' => true
-        ]);
-        
-        parent::__construct($args, $default_args);
+        ]));
 
         if($this->args['set_items'])
         {
