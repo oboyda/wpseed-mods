@@ -1,1 +1,1 @@
-<?php wpseedm_print_view('form-nice-checkbox'); ?>
+<?php wpseedm_print_view('Form_Advanced/form-nice-checkbox'); ?>
