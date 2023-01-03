@@ -27,7 +27,7 @@ class Form_Nice_Checkbox_Single extends Form_Nice_Checkbox
     {
         if($this->args['checked'])
         {
-            $this->selected = [$this->args['single_value']];
+            $this->args['selected'] = [$this->args['single_value']];
         }
 
         $this->setArgs();
