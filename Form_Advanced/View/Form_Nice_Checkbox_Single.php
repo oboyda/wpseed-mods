@@ -9,17 +9,28 @@ class Form_Nice_Checkbox_Single extends Form_Nice_Checkbox
         parent::__construct($args, [
 
             'multiple' => false,
-            
+
             'single_name' => '',
             'single_value' => '',
             'single_icon_html' => '',
-            'single_icon_class' => ''
+            'single_icon_class' => '',
+
+            'checked' => false
         ]);
 
-        $this->setArgs();
+        $this->_setArgs();
         $this->_setOptions();
-        $this->addHtmlClass('form-nice-checkbox');
-        $this->_setHtmlClass();
+        $this->__setHtmlClass();
+    }
+
+    protected function _setArgs()
+    {
+        if($this->args['checked'])
+        {
+            $this->selected = [$this->args['single_value']];
+        }
+
+        $this->setArgs();
     }
 
     protected function _setOptions()
@@ -32,5 +43,11 @@ class Form_Nice_Checkbox_Single extends Form_Nice_Checkbox
         ];
 
         $this->setOptions();
+    }
+
+    protected function __setHtmlClass()
+    {
+        $this->addHtmlClass('form-nice-checkbox');
+        $this->_setHtmlClass();
     }
 }
