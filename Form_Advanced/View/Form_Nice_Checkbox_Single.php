@@ -35,7 +35,7 @@ class Form_Nice_Checkbox_Single extends Form_Nice_Checkbox
 
     protected function _setOptions()
     {
-        $this->options[] = [
+        $this->args['options'][] = [
             'name' => $this->args['name'],
             'value' => $this->args['name'],
             'icon_html' => $this->args['icon_html'],
