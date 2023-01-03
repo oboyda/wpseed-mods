@@ -164,82 +164,85 @@ jQuery.fn.extend({
                 const dateTillFieldDisplay = datesRangeView.find(".date-till input.date-till-display");
                 const dateTillFieldAlt = datesRangeView.find(".date-till input.date-till");
                 const datepickerTillElem = datesRangeView.find(".date-till .datepicker");
-    
+  
+                function openDatepicker(datepickerElem){
+                    datepickerElem.removeClass("d-none");
+                }
+                function closeDatepicker(datepickerElem, timeout=false){
+                    if(timeout)
+                    {
+                        setTimeout(function(){
+                            datepickerElem.addClass("d-none");
+                        }, 500);
+                    }
+                    else{
+                        datepickerElem.addClass("d-none");
+                    }
+                }
+                
                 if(
                     datepickerFromElem.length && 
                     !datepickerFromElem.hasClass("hasDatepicker") && 
-                    // dateFromFieldDisplay.length && 
-                    // !dateFromFieldDisplay.hasClass("hasDatepicker") && 
                     typeof jQuery.fn.datepicker !== "undefined"
                 ){
                     datepickerFromElem.datepicker({
-                    // dateFromFieldDisplay.datepicker({
                         dateFormat: "dd/mm/yy",
                         altField: dateFromFieldAlt,
                         altFormat: "yy-mm-dd",
                         minDate: new Date(),
-                        // defaultDate: dateFromFieldDisplay.val() ? dateFromFieldDisplay.val() : null,
                         onSelect: function(dateText, datePicker){
                             dateFromFieldDisplay.val(dateText);
                             dateFromFieldAlt.change();
+
+                            closeDatepicker(datepickerFromElem, false);
                         }
                     });
                     if(datepickerTillElem.length)
-                    // if(dateTillFieldDisplay.length)
                     {
                         dateFromFieldAlt.on("change", function(){
                             const minDate = new Date(this.value);
                             datepickerTillElem.datepicker("option", "minDate", minDate);
-                            // dateTillFieldDisplay.datepicker("option", "minDate", minDate);
                         });
                     }
                 }
                 dateFromFieldDisplay.on("focus", function(){
-                    datepickerFromElem.removeClass("d-none");
+                    openDatepicker(datepickerFromElem);
                 });
-                dateFromFieldDisplay.on("blur", function(){
-                    setTimeout(function(){
-                        datepickerFromElem.addClass("d-none");
-                    }, 500);
-                });
+                // dateFromFieldDisplay.on("blur", function(){
+                //     closeDatepicker(datepickerFromElem, true);
+                // });
     
                 if(
                     datepickerTillElem.length && 
                     !datepickerTillElem.hasClass("hasDatepicker") && 
-                    // dateTillFieldDisplay.length && 
-                    // !dateTillFieldDisplay.hasClass("hasDatepicker") && 
                     typeof jQuery.fn.datepicker !== "undefined"
                 ){
                     datepickerTillElem.datepicker({
-                    // dateTillFieldDisplay.datepicker({
                         dateFormat: "dd/mm/yy",
                         altField: dateTillFieldAlt,
                         altFormat: "yy-mm-dd",
                         minDate: new Date(),
-                        // defaultDate: dateTillFieldDisplay.val() ? dateTillFieldDisplay.val() : null,
                         onSelect: function(dateText, datePicker){
                             dateTillFieldDisplay.val(dateText);
                             dateTillFieldAlt.change();
+
+                            closeDatepicker(datepickerTillElem, false);
                         }
                     });
                     if(datepickerFromElem.length)
-                    // if(dateFromFieldDisplay.length)
                     {
                         dateTillFieldAlt.on("change", function(){
                             const maxDate = new Date(this.value);
                             datepickerFromElem.datepicker("option", "maxDate", maxDate);
-                            // dateFromFieldDisplay.datepicker("option", "maxDate", maxDate);
                         });
                     }
                 }
                 dateTillFieldDisplay.on("focus", function(){
-                    datepickerTillElem.removeClass("d-none");
+                    openDatepicker(datepickerTillElem);
                 });
-                dateTillFieldDisplay.on("blur", function(){
-                    setTimeout(function(){
-                        datepickerTillElem.addClass("d-none");
-                    }, 500);
-                });
+                // dateTillFieldDisplay.on("blur", function(){
+                //     closeDatepicker(datepickerTillElem, true);
+                // });
     
             });
 
