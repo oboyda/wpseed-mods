@@ -124,8 +124,13 @@ class Form_Nice_Checkbox extends \WPSEEDM\View\View
         return $this->implodeAtts($this->args['input_data_atts']);
     }
 
+    public function getOptionsNum()
+    {
+        return is_array($this->args['options']) ? count($this->args['options']) : 0;
+    }
+
     public function getInputType()
     {
-        return $this->has_multiple() ? 'checkbox' : 'radio';
+        return $this->has_multiple() ? 'checkbox' : (($this->getOptionsNum() > 1) ? 'radio' : 'checkbox');
     }
 }
