@@ -4,14 +4,13 @@ namespace WPSEEDM\Mod\Form_Advanced\View;
 
 class Form_Nice_Checkbox extends \WPSEEDM\View\View 
 {
-    public function __construct($args)
+    public function __construct($args, $args_default=[])
     {
-        parent::__construct($args, [
+        parent::__construct($args, wp_parse_args($args_default, [
 
             'title' => '',
             'enabled' => true,
             'input_name' => '',
-            'input_data_atts' => [],
             'multiple' => false,
             'update_label' => true,
             'selected' => '',
@@ -26,11 +25,14 @@ class Form_Nice_Checkbox extends \WPSEEDM\View\View
             'parent_enabled' => [],
             'data_atts' => [],
             'change_submit' => false
-        ]);
+        ]));
 
-        $this->setArgs();
-        $this->setOptions();
-        $this->_setHtmlClass();
+        if(empty($args_default))
+        {
+            $this->setArgs();
+            $this->setOptions();
+            $this->_setHtmlClass();
+        }
     }
 
     protected function setArgs()
