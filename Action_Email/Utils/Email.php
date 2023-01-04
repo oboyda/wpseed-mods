@@ -16,10 +16,10 @@ class Email
 
     static function getGlobalPlaceholders()
     {
-        return [
+        return apply_filters('wpseedm_action_email_global_placeholders', [
             '%sitename%' => get_bloginfo('name'),
             '%siteurl%' => get_site_url()
-        ];
+        ]);
     }
 
     static function getFromName()
