@@ -12,7 +12,8 @@ class Status_Message extends \WPSEEDM\View\View
             'icon_class' => '',
             'show_icon' => true,
             // 'show_icon_sep' => true,
-            'message' => ''
+            'message' => '',
+            'size' => 'normal'
         ]);
 
         $this->setIconClass();
@@ -44,6 +45,7 @@ class Status_Message extends \WPSEEDM\View\View
     protected function _setHtmlClass()
     {
         $this->addHtmlClass('type-' . $this->args['type']);
+        $this->addHtmlClass('size-' . $this->args['size']);
 
         if($this->args['show_icon'])
         {

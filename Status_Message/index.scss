@@ -9,6 +9,15 @@
 
     margin: 0 0 1rem;
 
+    &.size-small {
+        font-size: 0.75em;
+        line-height: 1.4em;
+    }
+    &.size-large {
+        font-size: 1.25em;
+        line-height: 1.4em;
+    }
+
     .message {
         padding: 0.5em 1em;
         border-left: 3px solid #333;
@@ -17,18 +26,26 @@
 
     &.type-success {
         .status-icon {
-            color: #95b392;
+            color: #96c991;
         }
         .message {
-            border-left-color: #95b392;
+            border-left-color: #96c991;
         }
     }
     &.type-error {
         .status-icon {
-            color: #ee9696;
+            color: #cb4e4e;
         }
         .message {
-            border-left-color: #ee9696;
+            border-left-color: #cb4e4e;
+        }
+    }
+    &.type-warning {
+        .status-icon {
+            color: #fad289;
+        }
+        .message {
+            border-left-color: #fad289;
         }
     }
 
