@@ -264,7 +264,7 @@ jQuery.fn.extend({
                 });
             });
         }
-        const messagesCont = form.find(".messages-cont");
+        const messagesCont = form.find(".messages, .messages-cont");
         if(typeof resp.messages !== "undefined" && messagesCont.length)
         {
             messagesCont.html(resp.messages);
@@ -278,10 +278,10 @@ jQuery(function($)
     .ajax-form
     --------------------------------------------------
     */
-    $("form.ajax-form").ajaxFormInit();
+    $("form.ajax-form, form.ajax-form-std").ajaxFormInit();
     $(document.body).on("view_loaded", function(e, view, viewName){
 
-        view.find("form.ajax-form").ajaxFormInit();
+        view.find("form.ajax-form, form.ajax-form-std").ajaxFormInit();
     });
 
     /*
