@@ -238,7 +238,8 @@ form
 ----------------------------------------
 */
 
-form {
+body.wp-admin .edit-post-visual-editor form,
+body:not(.wp-admin) form {
 
     input[type='text'], 
     input[type='email'], 
