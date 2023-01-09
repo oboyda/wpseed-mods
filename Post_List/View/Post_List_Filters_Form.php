@@ -21,13 +21,6 @@ class Post_List_Filters_Form extends \WPSEEDM\View\View
         $this->filterListArgs();
     }
 
-    protected function getQueryArg($name, $default=null)
-    {
-        $q_arg = isset($this->args['q_args'][$name]) ? $this->args['q_args'][$name] : null;
-
-        return (empty($q_arg) && isset($default)) ? $default : $q_arg;
-    }
-
     protected function filterListArgs()
     {
         if(isset($this->args['list_args']['items']))
@@ -38,6 +31,13 @@ class Post_List_Filters_Form extends \WPSEEDM\View\View
         {
             unset($this->args['list_args']['block_data']);
         }
+    }
+
+    public function getQueryArg($name, $default=null)
+    {
+        $q_arg = isset($this->args['q_args'][$name]) ? $this->args['q_args'][$name] : null;
+
+        return (empty($q_arg) && isset($default)) ? $default : $q_arg;
     }
 
     public function getPostId()
