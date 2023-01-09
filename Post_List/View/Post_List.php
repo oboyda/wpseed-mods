@@ -73,7 +73,6 @@ class Post_List extends \WPSEEDM\View\View
     {
         $this->args['filters_args'] = wp_parse_args($this->args['filters_args'], [
             'q_args' => $this->args['q_args'],
-            'paged' => $this->args['q_args']['paged'],
             'action_name' => $this->args['action_name'],
             'list_view' => $this->args['list_view'],
             'list_args' => $this->orig_args

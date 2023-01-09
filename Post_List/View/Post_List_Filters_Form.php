@@ -12,7 +12,6 @@ class Post_List_Filters_Form extends \WPSEEDM\View\View
             
             'q_args' => [],
             
-            'paged' => 1,
             'action_name' => 'wpseedm_load_post_list',
 
             'list_view' => '',
@@ -20,6 +19,13 @@ class Post_List_Filters_Form extends \WPSEEDM\View\View
         ]));
 
         $this->filterListArgs();
+    }
+
+    protected function getQueryArg($name, $default=null)
+    {
+        $q_arg = isset($this->args['q_args'][$name]) ? $this->args['q_args'][$name] : null;
+
+        return (empty($q_arg) && isset($default)) ? $default : $q_arg;
     }
 
     protected function filterListArgs()
@@ -44,7 +50,7 @@ class Post_List_Filters_Form extends \WPSEEDM\View\View
     ?>
         <input type="hidden" name="list_view" value="<?php echo $this->get_list_view(); ?>" />
         <input type="hidden" name="list_args" value='<?php echo serialize($this->get_list_args()); ?>' />
-        <input type="hidden" name="paged" class="change-submit" value="<?php echo $this->get_paged(); ?>" />
+        <input type="hidden" name="paged" class="change-submit" value="<?php echo $this->getQueryArg('paged', 1); ?>" />
         <input type="hidden" name="post_id" class="change-submit" value="<?php echo $this->getPostId(); ?>" />
         <input type="hidden" name="action" value="<?php echo $this->get_action_name(); ?>" />
     <?php 
