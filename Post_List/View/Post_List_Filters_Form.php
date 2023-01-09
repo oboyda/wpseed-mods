@@ -26,7 +26,7 @@ class Post_List_Filters_Form extends \WPSEEDM\View\View
         $this->filterListArgs();
     }
 
-    protected function getQueryArg($name, $default=null)
+    public function getQueryArg($name, $default=null)
     {
         $req_arg = $this->req->get($name);
         $q_arg = isset($req_arg) ? $req_arg : (isset($this->args['q_args'][$name]) ? $this->args['q_args'][$name] : null);
