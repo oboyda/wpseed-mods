@@ -53,6 +53,7 @@ jQuery(function($){
                 viewName: "",
                 viewArgs: {},
                 viewArgsCast: {},
+                viewArgsS: {},
                 loadedCallback: null,
                 closeOnAjaxFormSuccess: false,
                 ..._args
@@ -72,7 +73,11 @@ jQuery(function($){
             btModal.show();
 
             // Load view in modal body
-            modalBodyElem.viewAjaxLoad("wpseedm_load_view", args.viewName, args.viewArgs, args.viewArgsCast, function(resp){
+            modalBodyElem.viewAjaxLoad("wpseedm_load_view", args.viewName, {
+                viewArgs: args.viewArgs,
+                viewArgsCast: args.viewArgsCast,
+                viewArgsS: args.viewArgsS
+            }, function(resp){
                 modalElem.removeClass("loading");
 
                 // Close modal on wpseedm_submit_ajax_form_success event
