@@ -32,7 +32,7 @@ class Post_List extends \WPSEEDM\View\View
             'item_view' => 'Post_List/post-list-item',
             'item_args' => [],
 
-            'filters_view' => 'Post_List/list-filters-hidden',
+            'filters_view' => 'Post_List/post-list-filters-form',
             'filters_args' => [],
 
             'show_pager' => true,
