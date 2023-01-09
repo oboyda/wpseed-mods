@@ -2,12 +2,17 @@
 
 namespace WPSEEDM\Mod\Post_List\View;
 
+use WPSEED\Req;
 use WPSEEDE\Utils\Base as Utils_Base;
 
 class Post_List_Filters_Form extends \WPSEEDM\View\View 
 {
+    protected $req;
+
     public function __construct($args, $default_args=[])
     {
+        $this->req = new Req();
+
         parent::__construct($args, wp_parse_args($default_args, [
             
             'q_args' => [],
@@ -21,6 +26,14 @@ class Post_List_Filters_Form extends \WPSEEDM\View\View
         $this->filterListArgs();
     }
 
+    protected function getQueryArg($name, $default=null)
+    {
+        $req_arg = $this->req->get($name);
+        $q_arg = isset($req_arg) ? $req_arg : (isset($this->args['q_args'][$name]) ? $this->args['q_args'][$name] : null);
+
+        return (empty($q_arg) && isset($default)) ? $default : $q_arg;
+    }
+
     protected function filterListArgs()
     {
         if(isset($this->args['list_args']['items']))
@@ -31,13 +44,6 @@ class Post_List_Filters_Form extends \WPSEEDM\View\View
         {
             unset($this->args['list_args']['block_data']);
         }
-    }
-
-    public function getQueryArg($name, $default=null)
-    {
-        $q_arg = isset($this->args['q_args'][$name]) ? $this->args['q_args'][$name] : null;
-
-        return (empty($q_arg) && isset($default)) ? $default : $q_arg;
     }
 
     public function getPostId()
