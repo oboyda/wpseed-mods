@@ -7,7 +7,7 @@
     <?php 
     foreach($view->get_options() as $option): 
 
-        $option_id = $view->get_input_name() . '_' . $option['value'];
+        $option_id = $view->get_input_id_pref() . $view->get_input_name() . '_' . $option['value'];
         $checked = ($view->has_selected() && in_array($option['value'], $view->get_selected())) ? ' checked' : '';
         $required = $view->has_required() ? ' required' : '';
         $has_icon = (!empty($option['icon_html']) || !empty($option['icon_class']));

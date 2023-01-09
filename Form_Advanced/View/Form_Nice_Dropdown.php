@@ -9,6 +9,7 @@ class Form_Nice_Dropdown extends \WPSEEDM\View\View
         parent::__construct($args, [
 
             'enabled' => true,
+            'input_id_pref' => '',
             'input_name' => '',
             'input_data_atts' => [],
             'multiple' => false,

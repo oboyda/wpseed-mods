@@ -10,6 +10,7 @@ class Form_Nice_Checkbox extends \WPSEEDM\View\View
 
             'title' => '',
             'enabled' => true,
+            'input_id_pref' => '',
             'input_name' => '',
             'multiple' => false,
             'update_label' => true,
