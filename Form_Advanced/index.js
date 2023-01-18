@@ -247,6 +247,8 @@ jQuery.fn.extend({
             });
 
             form.addClass("ajax-form-init");
+
+            form.trigger("ajax_form_loaded", [form]);
         });
     },
 
