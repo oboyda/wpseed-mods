@@ -31,8 +31,7 @@
         <label for="<?php echo $option_id; ?>">
             <?php if(!empty($option['icon_html'])): ?>
             <span class="label-icon"><?php echo $option['icon_html']; ?></span>
-            <?php endif; ?>
-            <?php if(!empty($option['icon_class'])): ?>
+            <?php elseif(!empty($option['icon_class'])): ?>
             <span class="label-icon"><i class="<?php echo $option['icon_class']; ?>"></i></span>
             <?php endif; ?>
             <span class="label-text"><?php echo $option['name']; ?></span>
