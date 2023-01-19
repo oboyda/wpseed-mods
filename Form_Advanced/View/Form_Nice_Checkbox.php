@@ -15,7 +15,14 @@ class Form_Nice_Checkbox extends \WPSEEDM\View\View
             'multiple' => false,
             'update_label' => true,
             'selected' => '',
-            'options' => [],
+            'options' => [
+                // [
+                //     'name' => '',
+                //     'value' => '',
+                //     'icon_html' => '',
+                //     'icon_class' => ''
+                // ]
+            ],
             'inline' => false,
             'checkbox_pos' => 'left',
             'size' => 'normal', #normal, large,
