@@ -21,13 +21,13 @@ class Post_List extends \WPSEEDM\View\View
             'type_class' => '\WPSEEDM\Type\Post',
 
             'q_args' => [],
-            'action_name' => 'eun_load_post_list',
+            'action_name' => 'wpseedm_load_post_list',
 
             'cols_num' => 2,
 
             'list_view' => 'Post_List/post-list',
             'list_nofound_view' => 'Post_List/post-list-nofound',
-            'list_nofound_text' => __('No items found', 'eun'),
+            'list_nofound_text' => __('No items found', 'wpseedm'),
 
             'item_view' => 'Post_List/post-list-item',
             'item_args' => [],
@@ -79,7 +79,7 @@ class Post_List extends \WPSEEDM\View\View
             'list_view' => $this->args['list_view'],
             'list_args' => $this->getArgsExtPublic()
         ]);
-        $this->setChildPart('filters_html', eun_get_view($this->args['filters_view'], $this->args['filters_args']));
+        $this->setChildPart('filters_html', wpseedm_get_view($this->args['filters_view'], $this->args['filters_args']));
 
         $items_html = '';
         if(!empty($this->args['items']))
@@ -87,7 +87,7 @@ class Post_List extends \WPSEEDM\View\View
             $_items = [];
             foreach($this->get_items() as $item)
             {
-                $_items[] = eun_get_view($this->args['item_view'], wp_parse_args($this->args['item_args'], [
+                $_items[] = wpseedm_get_view($this->args['item_view'], wp_parse_args($this->args['item_args'], [
                     // 'type_class' => $this->args['type_class'],
                     'item' => $item
                 ]));
@@ -96,7 +96,7 @@ class Post_List extends \WPSEEDM\View\View
         }
         elseif($this->args['list_nofound_view'] && $this->args['q_args']['paged'] === 1)
         {
-            $items_html = eun_get_view($this->args['list_nofound_view'], [
+            $items_html = wpseedm_get_view($this->args['list_nofound_view'], [
                 'nofound_text' => $this->args['list_nofound_text']
             ]);
         }
@@ -111,7 +111,7 @@ class Post_List extends \WPSEEDM\View\View
                 'items_per_page' => $this->args['items_per_page'],
                 'paged' => isset($this->args['q_args']['paged']) ? $this->args['q_args']['paged'] : 1
             ]);
-            $this->setChildPart('pager_html', eun_get_view($this->args['pager_view'], $this->args['pager_args']));
+            $this->setChildPart('pager_html', wpseedm_get_view($this->args['pager_view'], $this->args['pager_args']));
         }
     }
 }

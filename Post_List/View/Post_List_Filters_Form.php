@@ -17,7 +17,7 @@ class Post_List_Filters_Form extends \WPSEEDM\View\View
             
             'q_args' => [],
             
-            'action_name' => 'eun_load_post_list',
+            'action_name' => 'wpseedm_load_post_list',
 
             'list_view' => '',
             'list_args' => []
