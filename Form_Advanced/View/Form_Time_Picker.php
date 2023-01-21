@@ -6,6 +6,8 @@ class Form_Time_Picker extends \WPSEEDM\View\View
 {
     public function __construct($args)
     {
+        $this->setModName('WPSEEDM_Form_Advanced');
+
         parent::__construct($args, [
 
             'input_name' => '',

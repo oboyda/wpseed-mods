@@ -1,9 +1,9 @@
-export class AjaxForm 
+export class WpseedmAjaxForm 
 {
     constructor(form)
     {
         this.setForm(form);
-        this.intiForm();
+        this.initForm();
     }
 
     setForm(form)
@@ -160,31 +160,28 @@ export class AjaxForm
     }
 }
 
-jQuery.fn.extend({
-    
-    ajaxFormInit: function()
-    {
-        const ajaxForm = new AjaxForm(this);
-    }
-});
-
 jQuery(function($)
 {
     /*
-    .ajax-form
+    init .ajax-form
     --------------------------------------------------
     */
-    $("form.ajax-form, form.ajax-form-std").ajaxFormInit();
-    $(document.body).on("view_loaded", function(e, view, viewName){
+    $(".view.wpseedm form.ajax-form, form.ajax-form.wpseedm").each(function(){
+        const ajaxForm = new WpseedmAjaxForm($(this));
+    });
+    // $(document.body).on("view_loaded", function(e, view){
+    $(document.body).viewAddLoadedListener("view_loaded", function(e, view){
 
-        view.find("form.ajax-form, form.ajax-form-std").ajaxFormInit();
+        view.find(".view.wpseedm form.ajax-form, form.ajax-form.wpseedm").each(function(){
+            const ajaxForm = new WpseedmAjaxForm($(this));
+        });
     });
 
     /*
     .view.form-files-drop
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("view_loaded_form-files-drop", function(e, view){
+    $(document.body).viewAddLoadedListener("wpseedm-form-advanced--form-files-drop", function(e, view){
 
         const dropArea = view.find(".drop-area");
         const dropSummary = view.find(".drop-summary");
@@ -230,7 +227,7 @@ jQuery(function($)
     .view.form-input-dates
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("view_loaded_form-input-dates", function(e, view){
+    $(document.body).viewAddLoadedListener("wpseedm-form-advanced--form-input-dates", function(e, view){
 
         const dateFromFieldDisplay = view.find(".date-from input.date-from-display");
         const dateFromFieldAlt = view.find(".date-from input.date-from");
@@ -324,7 +321,7 @@ jQuery(function($)
     .view.form-nice-dropdown
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("view_loaded_form-nice-dropdown", function(e, view){
+    $(document.body).viewAddLoadedListener("wpseedm-form-advanced--form-nice-dropdown", function(e, view){
 
         const selectedLabel = view.find(".selected-label");
         const labelText = selectedLabel.find(".label-text");
@@ -471,7 +468,7 @@ jQuery(function($)
     .view.form-time-picker
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("view_loaded_form-time-picker", function(e, view){
+    $(document.body).viewAddLoadedListener("wpseedm-form-advanced--form-time-picker", function(e, view){
 
         const optElems = view.find(".t-opts .t-opt");
         const optBtns = view.find(".t-opts .t-opt button.opt-btn");
@@ -657,7 +654,7 @@ jQuery(function($)
     .view.form-input-location
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("view_loaded_form-input-location", function(e, view)
+    $(document.body).viewAddLoadedListener("wpseedm-form-advanced--form-input-location", function(e, view)
     {
         function initFormInputLocation(){
 
@@ -710,7 +707,7 @@ jQuery(function($)
     .view.form-files-preview
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("view_loaded_form-files-preview", function(e, view){
+    $(document.body).viewAddLoadedListener("wpseedm-form-advanced--form-files-preview", function(e, view){
 
         const itemsOrderIput = view.find(".order-input");
         const isSortable = view.hasClass("is-sortable");

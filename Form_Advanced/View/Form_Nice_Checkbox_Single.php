@@ -6,6 +6,8 @@ class Form_Nice_Checkbox_Single extends Form_Nice_Checkbox
 {
     public function __construct($args)
     {
+        $this->setModName('WPSEEDM_Form_Advanced');
+
         parent::__construct($args, [
 
             'multiple' => false,

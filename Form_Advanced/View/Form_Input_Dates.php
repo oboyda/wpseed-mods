@@ -6,6 +6,8 @@ class Form_Input_Dates extends \WPSEEDM\View\View
 {
     public function __construct($args)
     {
+        $this->setModName('WPSEEDM_Form_Advanced');
+
         parent::__construct($args, [
             
             'input_name_from' => '',
