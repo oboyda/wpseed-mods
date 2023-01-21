@@ -1,4 +1,4 @@
-class AjaxForm 
+export class AjaxForm 
 {
     constructor(form)
     {
