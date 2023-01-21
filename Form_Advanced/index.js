@@ -1,276 +1,170 @@
-jQuery.fn.extend({
-    
-    ajaxFormInit: function()
+class AjaxForm 
+{
+    constructor(form)
     {
-        this.each(function(){
+        this.setForm(form);
+        this.intiForm();
+    }
 
-            const form = jQuery(this);
+    setForm(form)
+    {
+        this.form = form;
+        this.submitBtn = this.form.find("button[type='submit'], input[type='submit']");
+        this.messagesCont = this.form.find(".messages, .messages-cont");
+    }
 
-            if(form.hasClass("ajax-form-init"))
-            {
-                return;
-            }
-    
-            form.on("submit", function(e){
-                e.preventDefault();
-    
-                const btnSubmit = form.find("button[type='submit']");
-                btnSubmit.prop("disabled", true);
-    
-                const data = new FormData(form.get(0));
-    
-                form.triggerHandler("wpseedm_submit_ajax_form_before", [data]);
-    
-                jQuery.ajax({
-                    url: form.attr("action") ? form.attr("action") : wpseedmIndexVars.ajaxurl,
-                    type: "POST",
-                    enctype: form.attr("enctype") ? form.attr("enctype") : "application/x-www-form-urlencoded",
-                    data: data,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    // timeout: 800000
-                })
-                .done(function(resp){
-                    if(resp.status)
-                    {
-                        if(resp.redirect)
-                        {
-                            location.assign(resp.redirect);
-                        }
-                        else if(resp.reload)
-                        {
-                            location.reload();
-                        }
+    /* ------------------------- */
+
+    initForm()
+    {
+        if(
+            !(this.form.hasClass("ajax-form") || this.form.hasClass("ajax-form-std")) 
+            || this.form.hasClass("ajax-form-init")
+        ){
+            return;
+        }
+
+        this.addFormListeners();
+
+        this.form.addClass("ajax-form-init");
+        this.form.trigger("ajax_form_loaded", [this.form]);
+    }
+
+    addFormListeners()
+    {
+        if(
+            !(this.form.hasClass(".ajax-form") || this.form.hasClass(".ajax-form-std")) 
+            || this.form.hasClass(".ajax-form-init")
+        ){
+            return;
+        }
+
+        this.initFilesDrop();
+        this.initDateInputs();
+
+        this.form.on("submit", this.handleFormSubmit.bind(this));
+        this.form.on("change", ".change-submit", this.handleInputChange.bind(this));
+
+        this.form.addClass("ajax-form-init");
+        this.form.trigger("ajax_form_loaded", [form]);
+    }
+
+    /* ------------------------- */
+
+    handleFormSubmit(e)
+    {
+        e.preventDefault();
+        this.submitForm();
+    }
+
+    handleInputChange(e)
+    {
+        // e.preventDefault();
+        this.submitForm();
+    }
+
+    /* ------------------------- */
+
+    submitForm()
+    {
+        const formData = new FormData(this.form.get(0));
         
-                        if(form.hasClass("submit-reset"))
-                        {
-                            form.get(0).reset();
-                        }
-                    }
-    
-                    btnSubmit.prop("disabled", false);
-    
-                    form.ajaxFormShowStatus(resp);
-    
-                    form.triggerHandler("wpseedm_submit_ajax_form_success", [resp, data]);
-                })
-                .fail(function(error)
-                {
-                    console.log("ERROR : ", error);
-                })
-                .always(function(resp)
-                {
-                    form.triggerHandler("wpseedm_submit_ajax_form_after", [resp, data]);
-                })
-            });
-    
-            form.find(".change-submit").on("change", function(){
-                form.submit();
-            });
-    
-            form.on("wpseedm_show_form_status", function(e, resp){
-                form.ajaxFormShowStatus(resp);
-            });
-    
-            /*
-            .view.form-files-drop
-            -------------------------
-            */
-    
-            function getFileSummary(files)
+        this.form.triggerHandler("wpseedm_submit_ajax_form_before", [formData]);
+
+        let reqArgs = {
+            url: this.form.attr("action") ? this.form.attr("action") : ((typeof wpseedmIndexVars !== "undefined") ? wpseedmIndexVars.ajaxurl : "/wp-admin/admin-ajax.php"),
+            type: "POST",
+            enctype: this.form.attr("enctype") ? this.form.attr("enctype") : (this.form.find("input[type='file']").length ? "multipart/form-data" : "application/x-www-form-urlencoded"),
+            data: formData
+        };
+        if(reqArgs == "multipart/form-data")
+        {
+            reqArgs.processData = false;
+            reqArgs.contentType = false;
+            reqArgs.cache = false;
+        }
+
+        this.submitBtn.prop("disabled", true);
+
+        jQuery.ajax(reqArgs)
+        .done(function(resp){
+            if(resp.status)
             {
-                let summ = [];
-                const filesArr = Array.isArray(files) ? files : Array.from(files);
-                filesArr.forEach((file) => {
-                    if(typeof file.name !== 'undefined')
-                    {
-                        summ.push(file.name);
-                    }
-                });
-                return summ.join(', ');
+                if(resp.redirect)
+                {
+                    location.assign(resp.redirect);
+                }
+                else if(resp.reload)
+                {
+                    location.reload();
+                }
+
+                if(form.hasClass("submit-reset"))
+                {
+                    this.form.get(0).reset();
+                }
             }
 
-            function resetFileInput(fileInput)
-            {
-                // fileInput.get(0).files = new FileList;
-                fileInput.val("");
-                fileInput.trigger("change");
-            }
+            this.submitBtn.prop("disabled", false);
 
-            form.find(".view.form-files-drop").each(function(){
-    
-                const filesDropView = jQuery(this);
-    
-                const dropArea = filesDropView.find(".drop-area");
-                const dropSummary = filesDropView.find(".drop-summary");
-                const fileInput = filesDropView.find("input[type='file']");
-                const fileInputElem = fileInput.get(0);
-                const fileClear = filesDropView.find(".clear-file .clear-btn");
-    
-                // if(dropArea.length && fileInput.length)
-                // {
-                    dropArea.on("dragenter", function(e){
-                        dropArea.addClass("file-over");
-                    });
-                    dropArea.on("dragleave", function(e){
-                        dropArea.removeClass("file-over");
-                    });
-                    dropArea.on("dragover", function(e){
-                        e.preventDefault();
-                    });
-                    dropArea.on("drop", function(e){
-                        e.preventDefault();
-                        const _e = e.originalEvent;
-    
-                        const filesArr = Array.from(_e.dataTransfer.files);
-    
-                        // Attach files to the input
-                        if((fileInputElem.multiple && filesArr.length > 0) || (!fileInputElem.multiple && filesArr.length === 1))
-                        {
-                            fileInputElem.files = _e.dataTransfer.files;
-                            fileInput.trigger("change");
-                        }
-                    });
-    
-                    fileInput.on("change", function(){
-                        if(fileInputElem.files.length){
-                            filesDropView.addClass("has-files");
-                        }else{
-                            filesDropView.removeClass("has-files");
-                        }
-                        dropSummary.html(getFileSummary(fileInputElem.files));
-                    });
+            this.showFormStatus(resp);
 
-                    fileClear.on("click", function(){
-                        resetFileInput(fileInput);
-                    });
-                // }
-            });
-    
-            /*
-            .view.form-input-dates
-            -------------------------
-            */
-    
-            form.find(".view.form-input-dates").each(function(){
-    
-                const datesRangeView = jQuery(this);
-    
-                const dateFromFieldDisplay = datesRangeView.find(".date-from input.date-from-display");
-                const dateFromFieldAlt = datesRangeView.find(".date-from input.date-from");
-                const datepickerFromElem = datesRangeView.find(".date-from .datepicker");
-    
-                const dateTillFieldDisplay = datesRangeView.find(".date-till input.date-till-display");
-                const dateTillFieldAlt = datesRangeView.find(".date-till input.date-till");
-                const datepickerTillElem = datesRangeView.find(".date-till .datepicker");
-  
-                function openDatepicker(datepickerElem){
-                    datepickerElem.removeClass("d-none");
-                }
-                function closeDatepicker(datepickerElem, timeout=false){
-                    if(timeout)
-                    {
-                        setTimeout(function(){
-                            datepickerElem.addClass("d-none");
-                        }, 500);
-                    }
-                    else{
-                        datepickerElem.addClass("d-none");
-                    }
-                }
-                
-                if(
-                    datepickerFromElem.length && 
-                    !datepickerFromElem.hasClass("hasDatepicker") && 
-                    typeof jQuery.fn.datepicker !== "undefined"
-                ){
-                    datepickerFromElem.datepicker({
-                        dateFormat: "dd/mm/yy",
-                        altField: dateFromFieldAlt,
-                        altFormat: "yy-mm-dd",
-                        minDate: new Date(),
-                        onSelect: function(dateText, datePicker){
-                            dateFromFieldDisplay.val(dateText);
-                            dateFromFieldAlt.change();
-
-                            closeDatepicker(datepickerFromElem, false);
-                        }
-                    });
-                    if(datepickerTillElem.length)
-                    {
-                        dateFromFieldAlt.on("change", function(){
-                            const minDate = new Date(this.value);
-                            datepickerTillElem.datepicker("option", "minDate", minDate);
-                        });
-                    }
-                }
-                dateFromFieldDisplay.on("focus", function(){
-                    openDatepicker(datepickerFromElem);
-                });
-                // dateFromFieldDisplay.on("blur", function(){
-                //     closeDatepicker(datepickerFromElem, true);
-                // });
-    
-                if(
-                    datepickerTillElem.length && 
-                    !datepickerTillElem.hasClass("hasDatepicker") && 
-                    typeof jQuery.fn.datepicker !== "undefined"
-                ){
-                    datepickerTillElem.datepicker({
-                        dateFormat: "dd/mm/yy",
-                        altField: dateTillFieldAlt,
-                        altFormat: "yy-mm-dd",
-                        minDate: new Date(),
-                        onSelect: function(dateText, datePicker){
-                            dateTillFieldDisplay.val(dateText);
-                            dateTillFieldAlt.change();
-
-                            closeDatepicker(datepickerTillElem, false);
-                        }
-                    });
-                    if(datepickerFromElem.length)
-                    {
-                        dateTillFieldAlt.on("change", function(){
-                            const maxDate = new Date(this.value);
-                            datepickerFromElem.datepicker("option", "maxDate", maxDate);
-                        });
-                    }
-                }
-                dateTillFieldDisplay.on("focus", function(){
-                    openDatepicker(datepickerTillElem);
-                });
-                // dateTillFieldDisplay.on("blur", function(){
-                //     closeDatepicker(datepickerTillElem, true);
-                // });
-    
-            });
-
-            form.addClass("ajax-form-init");
-
-            form.trigger("ajax_form_loaded", [form]);
+            this.form.triggerHandler("wpseedm_submit_ajax_form_success", [resp, formData]);
+        })
+        .fail(function(error){
+            console.log("ERROR : ", error);
+        })
+        .always(function(resp){
+            this.form.triggerHandler("wpseedm_submit_ajax_form_after", [resp, formData]);
         });
-    },
+    }
 
-    ajaxFormShowStatus: function(resp)
+    /* ------------------------- */
+
+    getFileSummary(files)
     {
-        const form = this;
+        let summ = [];
+        const filesArr = Array.isArray(files) ? files : Array.from(files);
+        filesArr.forEach((file) => {
+            if(typeof file.name !== 'undefined')
+            {
+                summ.push(file.name);
+            }
+        });
+        return summ.join(', ');
+    }
 
+    resetFileInput(fileInput)
+    {
+        // fileInput.get(0).files = new FileList;
+        fileInput.val("");
+        fileInput.trigger("change");
+    }
+
+    showFormStatus(resp)
+    {
         if(typeof resp.error_fields !== "undefined")
         {
             resp.error_fields.map((errorField) => {
-                const errorInput = form.find("[name='"+errorField+"']");
+                const errorInput = this.form.find("[name='"+errorField+"']");
                 errorInput.addClass("error");
                 errorInput.on("change", function(){
                     jQuery(this).removeClass("error");
                 });
             });
         }
-        const messagesCont = form.find(".messages, .messages-cont");
-        if(typeof resp.messages !== "undefined" && messagesCont.length)
+        if(typeof resp.messages !== "undefined" && this.messagesCont.length)
         {
-            messagesCont.html(resp.messages);
+            this.messagesCont.html(resp.messages);
         }
+    }
+}
+
+jQuery.fn.extend({
+    
+    ajaxFormInit: function()
+    {
+        const ajaxForm = new AjaxForm(this);
     }
 });
 
@@ -284,6 +178,146 @@ jQuery(function($)
     $(document.body).on("view_loaded", function(e, view, viewName){
 
         view.find("form.ajax-form, form.ajax-form-std").ajaxFormInit();
+    });
+
+    /*
+    .view.form-files-drop
+    --------------------------------------------------
+    */
+    $(document.body).viewAddLoadedListener("view_loaded_form-files-drop", function(e, view){
+
+        const dropArea = view.find(".drop-area");
+        const dropSummary = view.find(".drop-summary");
+        const fileInput = view.find("input[type='file']");
+        const fileInputElem = fileInput.get(0);
+        const fileClear = view.find(".clear-file .clear-btn");
+
+        dropArea.on("dragenter", function(e){
+            dropArea.addClass("file-over");
+        });
+        dropArea.on("dragleave", function(e){
+            dropArea.removeClass("file-over");
+        });
+        dropArea.on("dragover", function(e){
+            e.preventDefault();
+        });
+        dropArea.on("drop", function(e){
+            e.preventDefault();
+            const _e = e.originalEvent;
+
+            const filesArr = Array.from(_e.dataTransfer.files);
+
+            if((fileInputElem.multiple && filesArr.length > 0) || (!fileInputElem.multiple && filesArr.length === 1))
+            {
+                fileInputElem.files = _e.dataTransfer.files;
+                fileInput.trigger("change");
+            }
+        });
+        fileInput.on("change", function(){
+            if(fileInputElem.files.length){
+                view.addClass("has-files");
+            }else{
+                view.removeClass("has-files");
+            }
+            dropSummary.html(_this.getFileSummary(fileInputElem.files));
+        });
+        fileClear.on("click", function(){
+            _this.resetFileInput(fileInput);
+        });
+    });
+
+    /*
+    .view.form-input-dates
+    --------------------------------------------------
+    */
+    $(document.body).viewAddLoadedListener("view_loaded_form-input-dates", function(e, view){
+
+        const dateFromFieldDisplay = view.find(".date-from input.date-from-display");
+        const dateFromFieldAlt = view.find(".date-from input.date-from");
+        const datepickerFromElem = view.find(".date-from .datepicker");
+
+        const dateTillFieldDisplay = view.find(".date-till input.date-till-display");
+        const dateTillFieldAlt = view.find(".date-till input.date-till");
+        const datepickerTillElem = view.find(".date-till .datepicker");
+
+        function openDatepicker(datepickerElem){
+            datepickerElem.removeClass("d-none");
+        }
+        function closeDatepicker(datepickerElem, timeout=false){
+            if(timeout)
+            {
+                setTimeout(function(){
+                    datepickerElem.addClass("d-none");
+                }, 500);
+            }
+            else{
+                datepickerElem.addClass("d-none");
+            }
+        }
+        
+        if(
+            datepickerFromElem.length && 
+            !datepickerFromElem.hasClass("hasDatepicker") && 
+            typeof jQuery.fn.datepicker !== "undefined"
+        ){
+            datepickerFromElem.datepicker({
+                dateFormat: "dd/mm/yy",
+                altField: dateFromFieldAlt,
+                altFormat: "yy-mm-dd",
+                minDate: new Date(),
+                onSelect: function(dateText, datePicker){
+                    dateFromFieldDisplay.val(dateText);
+                    dateFromFieldAlt.change();
+
+                    closeDatepicker(datepickerFromElem, false);
+                }
+            });
+            if(datepickerTillElem.length)
+            {
+                dateFromFieldAlt.on("change", function(){
+                    const minDate = new Date(this.value);
+                    datepickerTillElem.datepicker("option", "minDate", minDate);
+                });
+            }
+        }
+        dateFromFieldDisplay.on("focus", function(){
+            openDatepicker(datepickerFromElem);
+        });
+        // dateFromFieldDisplay.on("blur", function(){
+        //     closeDatepicker(datepickerFromElem, true);
+        // });
+
+        if(
+            datepickerTillElem.length && 
+            !datepickerTillElem.hasClass("hasDatepicker") && 
+            typeof jQuery.fn.datepicker !== "undefined"
+        ){
+            datepickerTillElem.datepicker({
+                dateFormat: "dd/mm/yy",
+                altField: dateTillFieldAlt,
+                altFormat: "yy-mm-dd",
+                minDate: new Date(),
+                onSelect: function(dateText, datePicker){
+                    dateTillFieldDisplay.val(dateText);
+                    dateTillFieldAlt.change();
+
+                    closeDatepicker(datepickerTillElem, false);
+                }
+            });
+            if(datepickerFromElem.length)
+            {
+                dateTillFieldAlt.on("change", function(){
+                    const maxDate = new Date(this.value);
+                    datepickerFromElem.datepicker("option", "maxDate", maxDate);
+                });
+            }
+        }
+        dateTillFieldDisplay.on("focus", function(){
+            openDatepicker(datepickerTillElem);
+        });
+        // dateTillFieldDisplay.on("blur", function(){
+        //     closeDatepicker(datepickerTillElem, true);
+        // });
     });
 
     /*
@@ -708,5 +742,4 @@ jQuery(function($)
             });
         }
     });
-
 });
