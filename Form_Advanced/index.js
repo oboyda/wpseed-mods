@@ -181,7 +181,7 @@ jQuery(function($)
     .view.form-files-drop
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("wpseedm-form-advanced--form-files-drop", function(e, view){
+    $(document.body).viewAddLoadedListener("wpseedm.form-advanced.form-files-drop", function(e, view){
 
         const dropArea = view.find(".drop-area");
         const dropSummary = view.find(".drop-summary");
@@ -227,7 +227,7 @@ jQuery(function($)
     .view.form-input-dates
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("wpseedm-form-advanced--form-input-dates", function(e, view){
+    $(document.body).viewAddLoadedListener("wpseedm.form-advanced.form-input-dates", function(e, view){
 
         const dateFromFieldDisplay = view.find(".date-from input.date-from-display");
         const dateFromFieldAlt = view.find(".date-from input.date-from");
@@ -321,7 +321,7 @@ jQuery(function($)
     .view.form-nice-dropdown
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("wpseedm-form-advanced--form-nice-dropdown", function(e, view){
+    $(document.body).viewAddLoadedListener("wpseedm.form-advanced.form-nice-dropdown", function(e, view){
 
         const selectedLabel = view.find(".selected-label");
         const labelText = selectedLabel.find(".label-text");
@@ -468,7 +468,7 @@ jQuery(function($)
     .view.form-time-picker
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("wpseedm-form-advanced--form-time-picker", function(e, view){
+    $(document.body).viewAddLoadedListener("wpseedm.form-advanced.form-time-picker", function(e, view){
 
         const optElems = view.find(".t-opts .t-opt");
         const optBtns = view.find(".t-opts .t-opt button.opt-btn");
@@ -654,7 +654,7 @@ jQuery(function($)
     .view.form-input-location
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("wpseedm-form-advanced--form-input-location", function(e, view)
+    $(document.body).viewAddLoadedListener("wpseedm.form-advanced.form-input-location", function(e, view)
     {
         function initFormInputLocation(){
 
@@ -707,7 +707,7 @@ jQuery(function($)
     .view.form-files-preview
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("wpseedm-form-advanced--form-files-preview", function(e, view){
+    $(document.body).viewAddLoadedListener("wpseedm.form-advanced.form-files-preview", function(e, view){
 
         const itemsOrderIput = view.find(".order-input");
         const isSortable = view.hasClass("is-sortable");
