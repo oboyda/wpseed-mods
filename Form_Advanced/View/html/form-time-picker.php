@@ -1,4 +1,4 @@
-<div class="<?php echo $view->getHtmlClass(); ?>" data-view="<?php echo $view->getName(); ?>">
+<div class="<?php echo $view->getHtmlClass(); ?>" data-view="<?php echo $view->getName(true, true); ?>">
     <?php if($view->has_label()): ?>
     <label><?php echo $view->get_label(); ?></label>
     <?php endif; ?>

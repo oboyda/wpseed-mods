@@ -6,7 +6,7 @@ class Form_Nice_Dropdown extends \WPSEEDM\View\View
 {
     public function __construct($args)
     {
-        $this->setModName('WPSEEDM_Form_Advanced');
+        $this->setModName('Form_Advanced');
 
         parent::__construct($args, [
 

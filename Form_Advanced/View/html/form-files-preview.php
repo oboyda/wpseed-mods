@@ -1,4 +1,4 @@
-<div class="<?php echo $view->getHtmlClass(); ?>" data-view="<?php echo $view->getName(); ?>">
+<div class="<?php echo $view->getHtmlClass(); ?>" data-view="<?php echo $view->getName(true, true); ?>">
     <div class="file-items">
         <?php 
         // if($view->has_items_html()):
