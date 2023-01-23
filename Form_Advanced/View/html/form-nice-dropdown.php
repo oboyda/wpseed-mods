@@ -1,4 +1,4 @@
-<div class="<?php echo $view->getHtmlClass(); ?>" <?php echo $view->getDataAtts(); ?> data-input_name="<?php echo $view->get_input_name(); ?>" data-view="<?php echo $view->getName(true, true); ?>">
+<div class="<?php echo $view->getHtmlClass(); ?>" <?php echo $view->getDataAtts(); ?> data-input_name="<?php echo $view->get_input_name(); ?>" data-view="<?php echo $view->getName(); ?>">
     <?php 
     $elem_class = ['selected-label'];
     if($view->has_label()) $elem_class[] = 'has-label';

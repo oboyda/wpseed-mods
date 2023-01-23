@@ -1,4 +1,4 @@
-<div class="<?php echo $view->getHtmlClass(); ?>" <?php echo $view->getDataAtts(); ?> data-input_name="<?php echo $view->get_input_name(); ?>" data-view="<?php echo $view->getName(true, true); ?>">
+<div class="<?php echo $view->getHtmlClass(); ?>" <?php echo $view->getDataAtts(); ?> data-input_name="<?php echo $view->get_input_name(); ?>" data-view="<?php echo $view->getName(); ?>">
 
     <?php if($view->has_title()): ?>
     <label class="title-label"><?php echo $view->get_title(); ?></label>
