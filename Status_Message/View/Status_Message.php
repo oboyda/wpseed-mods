@@ -6,6 +6,8 @@ class Status_Message extends \WPSEEDM\View\View
 {
     public function __construct($args)
     {
+        $this->setModName('Status_Message');
+
         parent::__construct($args, [
             
             'type' => 'success',

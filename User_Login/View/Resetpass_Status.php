@@ -6,6 +6,8 @@ class Resetpass_Status extends \WPSEEDM\View\View
 {
     public function __construct($args)
     {
+        $this->setModName('User_Login');
+
         parent::__construct($args, [
 
             'status' => false,

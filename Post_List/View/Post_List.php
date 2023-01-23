@@ -9,6 +9,8 @@ class Post_List extends \WPSEEDM\View\View
 {
     public function __construct($args, $args_default=[])
     {
+        $this->setModName('Post_List');
+
         parent::__construct($args, wp_parse_args($args_default, [
             
             'list_title' => '',

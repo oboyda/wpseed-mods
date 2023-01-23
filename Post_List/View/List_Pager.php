@@ -8,6 +8,8 @@ class List_Pager extends \WPSEEDM\View\View
 
     public function __construct($args)
     {
+        $this->setModName('Post_List');
+
         $this->pages_max = 0;
 
         parent::__construct($args, [

@@ -6,6 +6,8 @@ class Tabs_Content extends \WPSEEDM\View\View
 {
     public function __construct($args)
     {
+        $this->setModName('Tabs_Content');
+
         parent::__construct($args, [
 
             'tabs_pos' => 'left',

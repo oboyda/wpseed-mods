@@ -48,7 +48,7 @@ jQuery(function($){
     .view.post-list
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("view_loaded_post-list", function(e, view){
+    $(document.body).viewAddLoadedListener("wpseedm.post-list.post-list", function(e, view){
         view.initPostListView();
     });
 });

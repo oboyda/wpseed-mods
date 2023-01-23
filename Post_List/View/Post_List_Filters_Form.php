@@ -11,6 +11,8 @@ class Post_List_Filters_Form extends \WPSEEDM\View\View
 
     public function __construct($args, $default_args=[])
     {
+        $this->setModName('Post_List');
+
         $this->req = new Req();
 
         parent::__construct($args, wp_parse_args($default_args, [
