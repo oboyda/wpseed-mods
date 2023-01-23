@@ -43,10 +43,11 @@ export class PostList
 
         // this.viewListPager.on("click", "li.page a", function(e){
         this.view.on("click", ".view.list-pager.ajax-pager li.page a", function(e){
-            e.preventDefault();
-
             const a = jQuery(this);
-            _this.filtersFormPagedInput.val(parseInt(a.data("page")));
+            const page = parseInt(a.data("page"));
+            console.log(page);
+
+            _this.filtersFormPagedInput.val(page);
             _this.filtersFormPagedInput.change();
         });
     }
