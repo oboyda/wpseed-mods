@@ -4,10 +4,10 @@ namespace WPSEEDM\Mod\Tabs_Content\View;
 
 class Tabs_Content extends \WPSEEDM\View\View 
 {
+    const MOD_NAME = 'Tabs_Content';
+    
     public function __construct($args)
     {
-        $this->setModName('Tabs_Content');
-
         parent::__construct($args, [
 
             'tabs_pos' => 'left',

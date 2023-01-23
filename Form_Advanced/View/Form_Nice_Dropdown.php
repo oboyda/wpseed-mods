@@ -4,10 +4,10 @@ namespace WPSEEDM\Mod\Form_Advanced\View;
 
 class Form_Nice_Dropdown extends \WPSEEDM\View\View 
 {
+    const MOD_NAME = 'Form_Advanced';
+
     public function __construct($args)
     {
-        $this->setModName('Form_Advanced');
-
         parent::__construct($args, [
 
             'enabled' => true,

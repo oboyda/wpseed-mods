@@ -4,10 +4,10 @@ namespace WPSEEDM\Mod\User_Login\View;
 
 class Resetpass_Status extends \WPSEEDM\View\View 
 {
+    const MOD_NAME = 'User_Login';
+    
     public function __construct($args)
     {
-        $this->setModName('User_Login');
-
         parent::__construct($args, [
 
             'status' => false,
