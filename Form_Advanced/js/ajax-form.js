@@ -32,21 +32,11 @@ export class AjaxForm
 
     addFormListeners()
     {
-        if(
-            !(this.form.hasClass(".ajax-form") || this.form.hasClass(".ajax-form-std")) 
-            || this.form.hasClass(".ajax-form-init")
-        ){
-            return;
-        }
-
-        this.initFilesDrop();
-        this.initDateInputs();
-
         this.form.on("submit", this.handleFormSubmit.bind(this));
         this.form.on("change", ".change-submit", this.handleInputChange.bind(this));
 
         this.form.addClass("ajax-form-init");
-        this.form.trigger("ajax_form_loaded", [form]);
+        this.form.trigger("ajax_form_loaded", [this.form]);
     }
 
     /* ------------------------- */
@@ -67,17 +57,21 @@ export class AjaxForm
 
     submitForm()
     {
-        const formData = new FormData(this.form.get(0));
+        const _this = this;
+
+        const encType = this.form.attr("enctype") ? this.form.attr("enctype") : (this.form.find("input[type='file']").length ? "multipart/form-data" : "application/x-www-form-urlencoded");
+
+        const formData = encType === "multipart/form-data" ? new FormData(this.form.get(0)) : this.form.serialize();
         
         this.form.triggerHandler("wpseedm_submit_ajax_form_before", [formData]);
 
         let reqArgs = {
             url: this.form.attr("action") ? this.form.attr("action") : ((typeof wpseedmIndexVars !== "undefined") ? wpseedmIndexVars.ajaxurl : "/wp-admin/admin-ajax.php"),
             type: "POST",
-            enctype: this.form.attr("enctype") ? this.form.attr("enctype") : (this.form.find("input[type='file']").length ? "multipart/form-data" : "application/x-www-form-urlencoded"),
+            enctype: encType,
             data: formData
         };
-        if(reqArgs == "multipart/form-data")
+        if(encType == "multipart/form-data")
         {
             reqArgs.processData = false;
             reqArgs.contentType = false;
@@ -99,23 +93,23 @@ export class AjaxForm
                     location.reload();
                 }
 
-                if(form.hasClass("submit-reset"))
+                if(_this.form.hasClass("submit-reset"))
                 {
-                    this.form.get(0).reset();
+                    _this.form.get(0).reset();
                 }
             }
 
-            this.submitBtn.prop("disabled", false);
+            _this.submitBtn.prop("disabled", false);
 
-            this.showFormStatus(resp);
+            _this.showFormStatus(resp);
 
-            this.form.triggerHandler("wpseedm_submit_ajax_form_success", [resp, formData]);
+            _this.form.triggerHandler("wpseedm_submit_ajax_form_success", [resp, formData]);
         })
         .fail(function(error){
             console.log("ERROR : ", error);
         })
         .always(function(resp){
-            this.form.triggerHandler("wpseedm_submit_ajax_form_after", [resp, formData]);
+            _this.form.triggerHandler("wpseedm_submit_ajax_form_after", [resp, formData]);
         });
     }
 

@@ -11,7 +11,6 @@ jQuery(function($)
     });
     // $(document.body).on("view_loaded", function(e, view){
     $(document.body).viewAddLoadedListener("view_loaded", function(e, view){
-
         view.find(".view.wpseedm form.ajax-form, form.ajax-form.wpseedm").each(function(){
             const ajaxForm = new AjaxForm($(this));
         });
