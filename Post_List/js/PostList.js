@@ -5,7 +5,7 @@ export class PostList
         this.view = view;
 
         this.setView(view);
-        this.setListeners();
+        this.addListeners();
     }
 
     setView(view)
@@ -23,10 +23,10 @@ export class PostList
         this.filtersForm = filtersForm;
         this.filtersFormPagedInput = this.filtersForm.find("input[name='paged']");
 
-        this.viewListPager = this.view.find(".view.list-pager.ajax-pager");
+        // this.viewListPager = this.view.find(".view.list-pager.ajax-pager");
     }
 
-    setListeners()
+    addListeners()
     {
         const _this = this;
 
@@ -41,7 +41,8 @@ export class PostList
             _this.view.removeClass("loading");
         });
 
-        this.viewListPager.on("click", "li.page a", function(e){
+        // this.viewListPager.on("click", "li.page a", function(e){
+        this.view.on("click", ".view.list-pager.ajax-pager li.page a", function(e){
             e.preventDefault();
 
             const a = jQuery(this);
