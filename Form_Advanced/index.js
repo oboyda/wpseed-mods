@@ -1,4 +1,4 @@
-import { AjaxForm } from "./js/ajax-form";
+import { AjaxForm } from "./js/AjaxForm";
 
 jQuery(function($)
 {

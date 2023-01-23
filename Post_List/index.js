@@ -1,4 +1,4 @@
-import { PostList } from "./js/post-list";
+import { PostList } from "./js/PostList";
 
 jQuery(function($){
 
