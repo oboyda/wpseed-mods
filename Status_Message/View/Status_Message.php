@@ -4,10 +4,10 @@ namespace WPSEEDM\Mod\Status_Message\View;
 
 class Status_Message extends \WPSEEDM\View\View 
 {
+    const MOD_NAME = 'Status_Message';
+
     public function __construct($args)
     {
-        $this->setModName('Status_Message');
-
         parent::__construct($args, [
             
             'type' => 'success',

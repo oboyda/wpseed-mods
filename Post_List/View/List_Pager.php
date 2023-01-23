@@ -4,12 +4,12 @@ namespace WPSEEDM\Mod\Post_List\View;
 
 class List_Pager extends \WPSEEDM\View\View 
 {
+    const MOD_NAME = 'Post_List';
+
     var $pages_max;
 
     public function __construct($args)
     {
-        $this->setModName('Post_List');
-
         $this->pages_max = 0;
 
         parent::__construct($args, [

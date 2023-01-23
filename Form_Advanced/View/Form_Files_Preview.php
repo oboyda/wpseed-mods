@@ -4,10 +4,10 @@ namespace WPSEEDM\Mod\Form_Advanced\View;
 
 class Form_Files_Preview extends \WPSEEDM\View\View 
 {
+    const MOD_NAME = 'Form_Advanced';
+
     public function __construct($args)
     {
-        $this->setModName('Form_Advanced');
-
         parent::__construct($args, [
             'attachment_ids' => [],
             'cols' => 3,

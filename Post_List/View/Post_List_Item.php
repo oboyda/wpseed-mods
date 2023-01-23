@@ -4,12 +4,12 @@ namespace WPSEEDM\Mod\Post_List\View;
 
 class Post_List_Item extends \WPSEEDM\View\View 
 {
+    const MOD_NAME = 'Post_List';
+
     public $item;
 
     public function __construct($args, $default_args=[])
     {
-        $this->setModName('Post_List');
-
         parent::__construct($args, wp_parse_args($default_args, [
 
             'item' => null,

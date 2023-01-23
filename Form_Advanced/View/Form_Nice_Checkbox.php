@@ -4,10 +4,10 @@ namespace WPSEEDM\Mod\Form_Advanced\View;
 
 class Form_Nice_Checkbox extends \WPSEEDM\View\View 
 {
+    const MOD_NAME = 'Form_Advanced';
+
     public function __construct($args, $args_default=[])
     {
-        $this->setModName('Form_Advanced');
-
         parent::__construct($args, wp_parse_args($args_default, [
 
             'title' => '',
