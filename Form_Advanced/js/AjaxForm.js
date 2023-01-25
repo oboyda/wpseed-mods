@@ -55,7 +55,7 @@ export class AjaxForm
 
     /* ------------------------- */
 
-    submitForm()
+    submitForm(cbk)
     {
         const _this = this;
 
@@ -104,6 +104,11 @@ export class AjaxForm
             _this.showFormStatus(resp);
 
             _this.form.triggerHandler("wpseedm_submit_ajax_form_success", [resp, formData]);
+
+            if(typeof cbk === "function")
+            {
+                cbk(resp);
+            }
         })
         .fail(function(error){
             console.log("ERROR : ", error);
