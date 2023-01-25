@@ -147,9 +147,9 @@ export class AjaxForm
         {
             resp.error_fields.forEach((field) => {
                 const errorInput = this.form.find("[name='"+field+"']");
-                errorInput.addClass("error");
+                errorInput.addClass("error-field");
                 errorInput.on("change", function(){
-                    jQuery(this).removeClass("error");
+                    jQuery(this).removeClass("error-field");
                 });
             });
         }
