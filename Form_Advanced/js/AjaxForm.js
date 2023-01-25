@@ -82,6 +82,7 @@ export class AjaxForm
 
         jQuery.ajax(reqArgs)
         .done(function(resp){
+
             if(resp.status)
             {
                 if(resp.redirect)
@@ -144,8 +145,8 @@ export class AjaxForm
     {
         if(typeof resp.error_fields !== "undefined")
         {
-            resp.error_fields.map((errorField) => {
-                const errorInput = this.form.find("[name='"+errorField+"']");
+            resp.error_fields.forEach((field) => {
+                const errorInput = this.form.find("[name='"+field+"']");
                 errorInput.addClass("error");
                 errorInput.on("change", function(){
                     jQuery(this).removeClass("error");
