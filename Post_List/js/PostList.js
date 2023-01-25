@@ -22,8 +22,11 @@ export class PostList
     {
         this.filtersForm = filtersForm;
         this.filtersFormPagedInput = this.filtersForm.find("input[name='paged']");
+    }
 
-        // this.viewListPager = this.view.find(".view.list-pager.ajax-pager");
+    submitFiltersForm()
+    {
+        this.filtersFormPagedInput.change();
     }
 
     addListeners()
@@ -41,7 +44,6 @@ export class PostList
             _this.view.removeClass("loading");
         });
 
-        // this.viewListPager.on("click", "li.page a", function(e){
         this.view.on("click", ".view.list-pager.ajax-pager li.page a", function(e){
             e.preventDefault();
 

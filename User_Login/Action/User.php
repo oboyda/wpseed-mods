@@ -17,8 +17,8 @@ class User extends \WPSEED\Action
 
         add_action('wp_ajax_nopriv_wpseedm_resetpass', [$this, 'resetPass']);
 
-        add_filter('login_url', [$this, 'filterLoginUrl']);
-        add_action('admin_init', [$this, 'restrictWpAdminAccess']);
+        // add_filter('login_url', [$this, 'filterLoginUrl']);
+        // add_action('admin_init', [$this, 'restrictWpAdminAccess']);
 
         add_action('user_register', [$this, 'sendUserVerificationEmailUserRegister'], 20, 2);
 
