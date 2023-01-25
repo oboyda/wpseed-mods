@@ -227,11 +227,6 @@ class User extends \WPSEED\Action
         {
             $user = new Type_User($user);
         }
-        file_put_contents(ABSPATH . '/__debug.txt', print_r([
-            time(),
-            print_r($user, true)
-        ], true));
-        return;
 
         if(!$user->get_id())
         {
