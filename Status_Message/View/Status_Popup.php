@@ -1,8 +1,8 @@
 <?php
 
-namespace EUN\Mod\Status_Message\View;
+namespace WPSEEDM\Mod\Status_Message\View;
 
-class Status_Popup extends \EUN\View\View 
+class Status_Popup extends \WPSEEDM\View\View 
 {
     const MOD_NAME = 'Status_Message';
 

@@ -1,6 +1,6 @@
 <?php 
 
-namespace EUN\Mod\Status_Message\Action\View;
+namespace WPSEEDM\Mod\Status_Message\Action\View;
 
 class Status_Popup 
 {
@@ -11,6 +11,6 @@ class Status_Popup
 
     public function printPopup()
     {
-        eun_print_view('Status_Message/status-popup');
+        wpseedm_print_view('Status_Message/status-popup');
     }
 }

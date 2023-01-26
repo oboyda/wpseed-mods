@@ -6,7 +6,7 @@ jQuery(function($){
     .view.status-message.status-popup
     --------------------------------------------------
     */
-    $(document.body).viewAddLoadedListener("eun.status-message.status-popup", function(e, view, viewRegistry){
+    $(document.body).viewAddLoadedListener("wpseedm.status-message.status-popup", function(e, view, viewRegistry){
 
         viewRegistry.addInterface(new StatusPopup(view));
     });
