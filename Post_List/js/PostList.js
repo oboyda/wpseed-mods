@@ -26,7 +26,8 @@ export class PostList
 
     submitFiltersForm()
     {
-        this.filtersFormPagedInput.change();
+        // this.filtersFormPagedInput.change();
+        this.filtersForm.submit();
     }
 
     addListeners()
