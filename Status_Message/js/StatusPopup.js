@@ -8,13 +8,13 @@ export class StatusPopup extends ViewUpdater
         
         this.setConfigElems({
 
-            content: ".popup-content",
+            message: ".popup-message",
             close_btn: ".popup-close"
         });
 
         this.setConfigsDefault({
             
-            content: {
+            message: {
                 text: ""
             }
         });
@@ -33,11 +33,12 @@ export class StatusPopup extends ViewUpdater
         this.elems.close_btn.on("click", this.hide.bind(this));
     }
 
-    show(content, type='success')
+    show(message, type='success')
     {
         this.view.addClass("opened");
         this.view.addClass("type-"+type);
-        this.setConfig("content.text", content, true);
+
+        this.setConfig("message.text", message, true);
 
         setTimeout(() => {
             this.hide();

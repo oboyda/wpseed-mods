@@ -81,7 +81,7 @@
     z-index: 500;
     visibility: hidden;
 
-    max-width: 25em;
+    min-width: 25em;
 
     background-color: #ffffff;
     box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
@@ -117,7 +117,7 @@
     }
 
     .popup-message {
-        font-size: 0.9em;
+        font-size: 1em;
         line-height: 1.4em;
     }
 }
