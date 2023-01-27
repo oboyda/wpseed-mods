@@ -63,10 +63,10 @@ export class AjaxForm
 
         const formData = encType === "multipart/form-data" ? new FormData(this.form.get(0)) : this.form.serialize();
         
-        this.form.trigger("wpseedm_submit_ajax_form_before", [formData]);
+        this.form.trigger("eun_submit_ajax_form_before", [formData]);
 
         let reqArgs = {
-            url: this.form.attr("action") ? this.form.attr("action") : ((typeof wpseedmIndexVars !== "undefined") ? wpseedmIndexVars.ajaxurl : "/wp-admin/admin-ajax.php"),
+            url: this.form.attr("action") ? this.form.attr("action") : ((typeof eunIndexVars !== "undefined") ? eunIndexVars.ajaxurl : "/wp-admin/admin-ajax.php"),
             type: "POST",
             enctype: encType,
             data: formData
@@ -104,7 +104,8 @@ export class AjaxForm
 
             _this.showFormStatus(resp);
 
-            _this.form.trigger("wpseedm_submit_ajax_form_success", [resp, formData]);
+            // _this.form.trigger("eun_submit_ajax_form_success", [resp, formData]);
+            _this.form.trigger("eun_submit_ajax_form_after", [resp, formData]);
 
             if(typeof cbk === "function")
             {
@@ -112,11 +113,13 @@ export class AjaxForm
             }
         })
         .fail(function(error){
-            console.log("ERROR : ", error);
-        })
-        .always(function(resp){
-            _this.form.trigger("wpseedm_submit_ajax_form_after", [resp, formData]);
+            // console.log("ERROR : ", error);
+            _this.form.trigger("eun_submit_ajax_form_after", [{ status: false }, formData, error]);
         });
+        // .always(function(resp){
+        //     console.log(resp);
+        //     _this.form.trigger("eun_submit_ajax_form_after", [resp, formData]);
+        // });
     }
 
     /* ------------------------- */
