@@ -63,7 +63,7 @@ export class AjaxForm
 
         const formData = encType === "multipart/form-data" ? new FormData(this.form.get(0)) : this.form.serialize();
         
-        this.form.triggerHandler("wpseedm_submit_ajax_form_before", [formData]);
+        this.form.trigger("wpseedm_submit_ajax_form_before", [formData]);
 
         let reqArgs = {
             url: this.form.attr("action") ? this.form.attr("action") : ((typeof wpseedmIndexVars !== "undefined") ? wpseedmIndexVars.ajaxurl : "/wp-admin/admin-ajax.php"),
@@ -104,7 +104,7 @@ export class AjaxForm
 
             _this.showFormStatus(resp);
 
-            _this.form.triggerHandler("wpseedm_submit_ajax_form_success", [resp, formData]);
+            _this.form.trigger("wpseedm_submit_ajax_form_success", [resp, formData]);
 
             if(typeof cbk === "function")
             {
@@ -115,7 +115,7 @@ export class AjaxForm
             console.log("ERROR : ", error);
         })
         .always(function(resp){
-            _this.form.triggerHandler("wpseedm_submit_ajax_form_after", [resp, formData]);
+            _this.form.trigger("wpseedm_submit_ajax_form_after", [resp, formData]);
         });
     }
 
