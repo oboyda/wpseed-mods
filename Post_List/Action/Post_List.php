@@ -26,7 +26,7 @@ class Post_List extends \WPSEED\Action
         ]);
         $view_args['q_args']['paged'] = $this->getReq('paged', 'integer', 1);
 
-        $view = ofrp_get_view_object($view_name, $view_args);
+        $view = wpseedm_get_view_object($view_name, $view_args);
 
         if(isset($view) && method_exists($view, 'getChildParts'))
         {

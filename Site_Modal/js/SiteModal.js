@@ -105,7 +105,7 @@ export class SiteModal extends View
 
         const _this = this;
 
-        this.elems.modalContent.viewAjaxLoad("ofrp_load_view", _args.viewName, {
+        this.elems.modalContent.viewAjaxLoad("wpseedm_load_view", _args.viewName, {
 
             viewArgs: _args.viewArgs,
             viewArgsCast: _args.viewArgsCast,
