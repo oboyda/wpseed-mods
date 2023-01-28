@@ -126,8 +126,8 @@ export class SiteModal extends View
     {
         this.bootstrapModal.hide();
 
-        this.elems.modalContent.children(".view").viewRemoveRegistry();
+        this.elems.modalContent.find(".view").viewRemoveRegistry();
 
-        this.resetConfigs();
+        this.resetConfigs(true);
     }
 }
