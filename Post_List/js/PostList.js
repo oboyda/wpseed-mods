@@ -5,7 +5,7 @@ export class PostList
         this.view = view;
 
         this.setView(view);
-        this.addListeners();
+        this.addEventListeners();
     }
 
     setView(view)
@@ -30,7 +30,7 @@ export class PostList
         this.filtersForm.submit();
     }
 
-    addListeners()
+    addEventListeners()
     {
         const _this = this;
 
