@@ -34,6 +34,11 @@ export class PostList
     {
         const _this = this;
 
+        this.filtersForm.on("wpseedm_submit_ajax_form_before", function(e){
+
+            _this.view.addClass("loading");
+        });
+
         this.filtersForm.on("wpseedm_submit_ajax_form_after", function(e, resp, data){
             if(
                 resp.status && 
@@ -42,6 +47,7 @@ export class PostList
             ){
                 _this.view.viewUpdateParts(resp.values.view_parts_html, true);
             }
+
             _this.view.removeClass("loading");
         });
 
