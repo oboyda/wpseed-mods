@@ -43,7 +43,6 @@ class Post_List extends \WPSEEDM\View\View
 
             'set_items' => true
         ]));
-        $this->saveViewArgs($args);
 
         if($this->args['set_items'])
         {
@@ -77,9 +76,9 @@ class Post_List extends \WPSEEDM\View\View
         $this->args['filters_args'] = wp_parse_args($this->args['filters_args'], [
             'q_args' => $this->args['q_args'],
             'action_name' => $this->args['action_name'],
-            'list_view_id' => $this->getId(),
             'list_view' => $this->args['list_view'],
-            'list_args' => $this->getArgsExtPublic()
+            'list_view_id' => $this->getId()
+            // 'list_args' => $this->getArgsExtPublic()
         ]);
         $this->setChildPart('filters_html', wpseedm_get_view($this->args['filters_view'], $this->args['filters_args']));
 
