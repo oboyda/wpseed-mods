@@ -17,7 +17,9 @@ class Form_Nice_Checkbox_Single extends Form_Nice_Checkbox
             'single_icon_html' => '',
             'single_icon_class' => '',
 
-            'checked' => false
+            'checked' => false,
+
+            'input_type' => 'checkbox'
         ]);
 
         $this->_setArgs();
