@@ -13,8 +13,6 @@ class Post_List extends \WPSEED\Action
 
         add_action('wp_ajax_wpseedm_load_post_list', [$this, 'loadPostList']);
         add_action('wp_ajax_nopriv_wpseedm_load_post_list', [$this, 'loadPostList']);
-
-        // add_filter('wpseedm_load_view_args', [$this, 'filterViewArgs'], 10, 3);
     }
 
     public function loadPostList()
@@ -36,7 +34,7 @@ class Post_List extends \WPSEED\Action
             ]
         ];
 
-        $view_args = apply_filters('wpseedm_load_view_args', $view_args, $view_name, $view_args['block_id'], true);
+        $view_args = apply_filters('wpseedm_load_view_args', $view_args, $view_name, true);
 
         $view = wpseedm_get_view_object($view_name, $view_args);
 
@@ -47,20 +45,4 @@ class Post_List extends \WPSEED\Action
 
         $this->respond();
     }
-
-    // public function filterViewArgs($view_args, $view_name, $view_id)
-    // {
-    //     if($view_name !== 'Post_List/post-list')
-    //     {
-    //         return $view_args;
-    //     }
-
-    //     if(!isset($view_args['q_args']))
-    //     {
-    //         $view_args['q_args'] = [];
-    //     }
-    //     $view_args['q_args']['paged'] = $this->getReq('paged', 'integer', 1);
-
-    //     return $view_args;
-    // }
 }
