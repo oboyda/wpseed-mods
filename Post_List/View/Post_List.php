@@ -77,7 +77,8 @@ class Post_List extends \WPSEEDM\View\View
             'q_args' => $this->args['q_args'],
             'action_name' => $this->args['action_name'],
             'list_view' => $this->args['list_view'],
-            'list_view_id' => $this->getId()
+            'list_view_id' => $this->getId(),
+            'list_block_id' => $this->get_block_id()
             // 'list_args' => $this->getArgsExtPublic()
         ]);
         $this->setChildPart('filters_html', wpseedm_get_view($this->args['filters_view'], $this->args['filters_args']));

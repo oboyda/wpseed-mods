@@ -30,12 +30,13 @@ class Post_List extends \WPSEED\Action
 
         $view_args = [
             'id' => $this->getReq('list_view_id'),
+            'block_id' => $this->getReq('list_block_id'),
             'q_args' => [
                 'paged' => $this->getReq('paged', 'integer', 1)
             ]
         ];
 
-        $view_args = apply_filters('wpseedm_load_view_args', $view_args, $view_name, $view_args['id']);
+        $view_args = apply_filters('wpseedm_load_view_args', $view_args, $view_name, $view_args['block_id'], true);
 
         $view = wpseedm_get_view_object($view_name, $view_args);
 
