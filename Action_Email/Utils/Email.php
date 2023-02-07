@@ -53,7 +53,7 @@ class Email
         return isset($q->posts[0]) ? new Type_Email($q->posts[0]) : false;
     }
 
-    static function sendEmailByAction($to_email, $action, $placeholder_args=[])
+    static function sendEmailByAction($to_email, $action, $placeholder_args=[], $return_body=false)
     {
         $email_post = self::getEmailByAction($action);
 
@@ -71,14 +71,10 @@ class Email
 
         $sent = wp_mail($to_email, $subject, $body, $headers);
 
-        // file_put_contents(ABSPATH . '/__debug.txt', print_r([
-        //     time(),
-        //     (int)$sent,
-        //     $to_email,
-        //     $headers,
-        //     $subject,
-        //     $body
-        // ], true));
+        if($sent && $return_body)
+        {
+            return $body;
+        }
 
         return $sent;
     }
