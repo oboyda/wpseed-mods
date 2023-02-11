@@ -2,15 +2,17 @@
 
 namespace WPSEEDM\Mod\Action_Email\Utils;
 
-use WPSEEDM\Mod\Action_Email\Type\Email as Type_Email;
+use WPSEEDE\Utils\Type_List as Utils_Type_List;
 
 class Email 
 {
     static function getEmailActions()
     {
         return apply_filters('wpseedm_action_email_actions', [
+            'default_header' => __('Default header', 'wpseedm'),
+            'default_footer' => __('Default footer', 'wpseedm'),
             'resetpass' => __('Reset password', 'wpseedm'),
-            'email_verification' => __('Verification email', 'wpseedm'),
+            'email_verification' => __('Verification email', 'wpseedm')
         ]);
     }
 
@@ -34,40 +36,45 @@ class Email
 
     static function getEmailByAction($action)
     {
-        $q_args = [
-            'post_type' => 'action_email',
-            'post_status' => 'publish',
-            'posts_per_page' => 1,
-            'meta_query' => [
-                [
-                    'key' => '_email_action',
-                    'value' => $action,
-                    'type' => 'CHAR',
-                    'compare' => '='
-                ]
-            ],
-        ];
+        $items = Utils_Type_List::getItems([
+            'email_action' => $action,
+            'posts_per_page' => 1
+        ], 'WPSEEDM\Mod\Action_Email\Type\Email');
 
-        $q = new \WP_Query($q_args);
-
-        return isset($q->posts[0]) ? new Type_Email($q->posts[0]) : false;
+        return isset($items['items'][0]) ? $items['items'][0] : null;
     }
 
     static function sendEmailByAction($to_email, $action, $placeholder_args=[], $return_body=false)
     {
-        $email_post = self::getEmailByAction($action);
-
-        if(!is_a($email_post, '\WPSEEDM\Mod\Action_Email\Type\Email'))
+        $type_email = self::getEmailByAction($action);
+        if(!isset($type_email))
         {
             return false;
         }
 
-        $subject = $email_post->getSubject($placeholder_args);
-        $body = $email_post->getBody($placeholder_args);
+        $subject = $type_email->getSubject($placeholder_args);
+        $body = $type_email->getBody($placeholder_args);
         $headers = [
             'Content-Type: text/html; charset=UTF-8'
             // 'From: ' . self::getFromName() . ' <' . self::getFromEmail() . '>'
         ];
+
+        if($type_email->has_inc_default_header())
+        {
+            $type_email_header = self::getEmailByAction('default_header');
+            if(isset($type_email_header))
+            {
+                $body = $type_email_header->getBody($placeholder_args) . $body;
+            }
+        }
+        if($type_email->has_inc_default_footer())
+        {
+            $type_email_footer = self::getEmailByAction('default_footer');
+            if(isset($type_email_footer))
+            {
+                $body = $body . $type_email_footer->getBody($placeholder_args);
+            }
+        }
 
         $sent = wp_mail($to_email, $subject, $body, $headers);
 
