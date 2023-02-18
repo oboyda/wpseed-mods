@@ -53,7 +53,7 @@ class User extends \WPSEED\Action
         if(is_wp_error($signon_user))
         {
             $this->setStatus(false);
-            $this->addErrorMessage($signon_user->get_error_message());
+            // $this->addErrorMessage($signon_user->get_error_message());
         }
         elseif(is_a($signon_user, 'WP_User'))
         {
@@ -65,7 +65,7 @@ class User extends \WPSEED\Action
 
         if(!$this->hasErrors())
         {
-            $this->addSuccessMessage(__('Logged in successfully. Redirecting...', 'wpseedm'));
+            $this->addSuccessMessage(apply_filters('wpseedm_user_login_success_message', __('Logged in successfully. Redirecting...', 'wpseedm')));
         }
 
         $this->respond();
@@ -94,7 +94,7 @@ class User extends \WPSEED\Action
 
             $type_user = new Type_User($inputs['user_login']);
 
-            $error_message = sprintf(__('An error occurred while resetting the password. Please, <a href="%s">try again later</a>.', 'wpseedm'), get_site_url());
+            $error_message = apply_filters('wpseedm_user_login_passreset_error_message', sprintf(__('An error occurred while resetting the password. Please, <a href="%s">try again later</a>.', 'wpseedm'), get_site_url()));
             $hash_validated = Utils_User::validateHash($inputs['user_login'], $inputs['resetpasshash'], true);
 
             if($hash_validated)
@@ -112,7 +112,7 @@ class User extends \WPSEED\Action
                 
                 wp_clear_auth_cookie();
 
-                $this->addSuccessMessage(__('Password has been reset successfully.', 'wpseedm'));
+                $this->addSuccessMessage(apply_filters('wpseedm_user_login_passreset_success_message', __('Password has been reset successfully.', 'wpseedm')));
 
                 $this->setRedirect(apply_filters('wpseedm_user_login_resetpass_redirect', add_query_arg(
                     'email', 
@@ -145,10 +145,10 @@ class User extends \WPSEED\Action
 
             if($sent)
             {
-                $this->addSuccessMessage(__('Please, check your email to reset the password.', 'wpseedm'));
+                $this->addSuccessMessage(apply_filters('wpseedm_user_login_passreset_email_sent_message', __('Please, check your email to reset the password.', 'wpseedm')));
             }
             else{
-                $this->addErrorMessage(__('Failed to send password reset email. Please, try again later.', 'wpseedm'));
+                $this->addErrorMessage(apply_filters('wpseedm_user_login_passreset_email_failed_message', __('Failed to send password reset email. Please, try again later.', 'wpseedm')));
             }
         }
 
@@ -191,10 +191,10 @@ class User extends \WPSEED\Action
 
             if($sent)
             {
-                $this->addSuccessMessage(__('Verification email sent successfully. Please, check your email box.', 'wpseedm'));            
+                $this->addSuccessMessage(apply_filters('wpseedm_user_login_verif_email_sent_message', __('Verification email sent successfully. Please, check your email box.', 'wpseedm')));
             }
             else{
-                $this->addErrorMessage(__('Failed to send verification email. Please, try again later.', 'wpseedm'));
+                $this->addErrorMessage(apply_filters('wpseedm_user_login_verif_email_failed_message', __('Failed to send verification email. Please, try again later.', 'wpseedm')));
             }
         }
 
@@ -238,7 +238,7 @@ class User extends \WPSEED\Action
         if(Utils_User::emailVerificationEnabled() && !$user->isEmailVerified())
         {
             $this->setStatus(false);
-            $this->addErrorMessage(__('Email not verified. <a href="#" class="resend-email-verif" data-user_email="' . $user->getEmail() . '">Resend</a> verification email.', 'wpseedm'));
+            $this->addErrorMessage(apply_filters('wpseedm_user_login_verif_email_message', __('Email not verified. <a href="#" class="resend-email-verif" data-user_email="' . $user->getEmail() . '">Resend</a> verification email.', 'wpseedm')));
             $this->respond();
         }
     }
