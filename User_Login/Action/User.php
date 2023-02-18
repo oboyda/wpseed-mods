@@ -61,7 +61,7 @@ class User extends \WPSEED\Action
             $this->checkUserExistsAndVerified($inputs['user_login']);
     
             $this->setStatus(true);
-            $this->setRedirect(admin_url());
+            $this->setRedirect(apply_filters('eun_user_login_success_redirect', admin_url()));
         }
 
         if($this->status)
