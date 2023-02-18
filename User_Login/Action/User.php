@@ -54,6 +54,7 @@ class User extends \WPSEED\Action
         {
             $this->setStatus(false);
             // $this->addErrorMessage($signon_user->get_error_message());
+            $this->addErrorMessage(apply_filters('eun_user_login_failed_message', __('Failed to log in. Please, check your credentials.', 'eun')));
         }
         elseif(is_a($signon_user, 'WP_User'))
         {
