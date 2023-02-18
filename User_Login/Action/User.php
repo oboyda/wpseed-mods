@@ -63,9 +63,9 @@ class User extends \WPSEED\Action
             $this->setRedirect(admin_url());
         }
 
-        if(!$this->hasErrors())
+        if($this->status)
         {
-            $this->addSuccessMessage(apply_filters('wpseedm_user_login_success_message', __('Logged in successfully. Redirecting...', 'wpseedm')));
+            $this->addSuccessMessage(apply_filters('eun_user_login_success_message', __('Logged in successfully. Redirecting...', 'eun')));
         }
 
         $this->respond();
