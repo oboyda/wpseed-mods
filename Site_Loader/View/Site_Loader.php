@@ -10,7 +10,8 @@ class Site_Loader extends \DFRP\View\View
     {
         parent::__construct($args, [
             'pos' => '', #full
-            'shadow' => '' #light, dark
+            'shadow' => '', #light, dark,
+            'bootstrap_type' => 'spinner-grow'
         ]);
 
         $this->_setHtmlClass();
