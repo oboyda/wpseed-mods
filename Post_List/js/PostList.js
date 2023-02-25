@@ -1,8 +1,13 @@
 export class PostList 
 {
-    constructor(view)
+    constructor(view, config={})
     {
         this.view = view;
+
+        this.config = {
+            listItemsAppend: false,
+            ...config
+        };
 
         this.setView(view);
         this.addEventListeners();
@@ -22,6 +27,12 @@ export class PostList
     {
         this.filtersForm = filtersForm;
         this.filtersFormPagedInput = this.filtersForm.find("input[name='paged']");
+    }
+
+    setPaged(paged)
+    {
+        this.filtersFormPagedInput.val(paged);
+        this.filtersFormPagedInput.change();
     }
 
     submitFiltersForm()
@@ -45,6 +56,15 @@ export class PostList
                 typeof resp.values !== 'undefined' && 
                 typeof resp.values.view_parts_html !== 'undefined' 
             ){
+                if(
+                    _this.config.listItemsAppend 
+                    && typeof resp.values.view_parts_html.items_html !== "undefined" 
+                    && parseInt(_this.filtersFormPagedInput.val()) > 1 
+                ){
+                    _this.view.find(".part-items_html").viewAppend(resp.values.view_parts_html.items_html);
+                    delete resp.values.view_parts_html.items_html;
+                }
+
                 _this.view.viewUpdateParts(resp.values.view_parts_html, true);
             }
 
@@ -57,8 +77,7 @@ export class PostList
             const a = jQuery(this);
             const page = parseInt(a.data("page"));
 
-            _this.filtersFormPagedInput.val(page);
-            _this.filtersFormPagedInput.change();
+            _this.setPaged(page);
         });
     }
 }
