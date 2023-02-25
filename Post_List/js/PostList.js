@@ -1,3 +1,5 @@
+import { AjaxForm } from "../../Form_Advanced/js/AjaxForm";
+
 export class PostList 
 {
     constructor(view, config={})
@@ -10,6 +12,7 @@ export class PostList
         };
 
         this.setView(view);
+        this.initFiltersForm();
         this.addEventListeners();
     }
 
@@ -41,12 +44,26 @@ export class PostList
         this.filtersForm.submit();
     }
 
+    initFiltersForm()
+    {
+        if(!this.filtersForm.hasClass("ajax-form"))
+        {
+            this.ajaxForm = new AjaxForm(this.filtersForm);
+        }
+    }
+
     addEventListeners()
     {
         const _this = this;
 
-        this.filtersForm.on("wpseedm_submit_ajax_form_before", function(e){
+        this.filtersForm.on("change", ".change-submit", function(){
+            if(jQuery(this).attr("name") !== "paged")
+            {
+                _this.setPaged(1);
+            }
+        });
 
+        this.filtersForm.on("wpseedm_submit_ajax_form_before", function(){
             _this.view.addClass("loading");
         });
 
