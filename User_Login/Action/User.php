@@ -54,19 +54,19 @@ class User extends \WPSEED\Action
         {
             $this->setStatus(false);
             // $this->addErrorMessage($signon_user->get_error_message());
-            $this->addErrorMessage(apply_filters('eun_user_login_failed_message', __('Failed to log in. Please, check your credentials.', 'wpseedm')));
+            $this->addErrorMessage(apply_filters('wpseedm_user_login_failed_message', __('Failed to log in. Please, check your credentials.', 'wpseedm')));
         }
         elseif(is_a($signon_user, 'WP_User'))
         {
             $this->checkUserExistsAndVerified($inputs['user_login']);
     
             $this->setStatus(true);
-            $this->setRedirect(apply_filters('eun_user_login_success_redirect', admin_url()));
+            $this->setRedirect(apply_filters('wpseedm_user_login_success_redirect', admin_url()));
         }
 
         if($this->status)
         {
-            $this->addSuccessMessage(apply_filters('eun_user_login_success_message', __('Logged in successfully. Redirecting...', 'wpseedm')));
+            $this->addSuccessMessage(apply_filters('wpseedm_user_login_success_message', __('Logged in successfully. Redirecting...', 'wpseedm')));
         }
 
         $this->respond();
