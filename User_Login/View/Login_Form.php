@@ -6,10 +6,37 @@ class Login_Form extends \WPSEEDM\View\View
 {
     const MOD_NAME = 'User_Login';
 
-    function __construct($args)
+    protected $req;
+
+    public function __construct($args)
     {
         parent::__construct($args, [
             
         ]);
+
+        $this->req = new \WPSEED\Req();
+    }
+
+    public function getReq($name, $type='text', $default='')
+    {
+        return $this->req->get($name, $type, $default);
+    }
+
+    public function hasReq($name)
+    {
+        $r = $this->getReq($name);
+        return !empty($r);
+    }
+
+    public function isFormActive($name)
+    {
+        $form_active = 'login';
+
+        if($this->hasReq('resetpasshash'))
+        {
+            $form_active = 'resetpass';
+        }
+
+        return ($form_active == $name);
     }
 }

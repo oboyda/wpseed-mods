@@ -3,7 +3,7 @@
 namespace WPSEEDM\Mod\User_Login\Action;
 
 use WPSEEDM\Mod\User_Login\Utils\User as Utils_User;
-use WPSEEDM\Mod\User_Login\Utils\Email as Utils_Email;
+use WPSEEDM\Mod\Action_Email\Utils\Email as Utils_Email;
 use WPSEEDM\Type\User as Type_User;
 use WPSEEDM\Utils\Base as Utils_Base;
 
@@ -22,8 +22,8 @@ class User extends \WPSEED\Action
 
         add_action('user_register', [$this, 'sendUserVerificationEmailUserRegister'], 20, 2);
 
-        add_action('wp_ajax_wpseedm_resend_verif_email', [$this, 'sendUserVerificationEmail']);
-        add_action('wp_ajax_nopriv_wpseedm_resend_verif_email', [$this, 'sendUserVerificationEmail']);
+        // add_action('wp_ajax_wpseedm_resend_verif_email', [$this, 'sendUserVerificationEmail']);
+        // add_action('wp_ajax_nopriv_wpseedm_resend_verif_email', [$this, 'sendUserVerificationEmail']);
     }
 
     public function login()
@@ -52,15 +52,14 @@ class User extends \WPSEED\Action
 
         if(is_wp_error($signon_user))
         {
-            $this->setStatus(false);
+            $this->addErrorField(['user_login', 'user_pass']);
             // $this->addErrorMessage($signon_user->get_error_message());
             $this->addErrorMessage(apply_filters('wpseedm_user_login_failed_message', __('Failed to log in. Please, check your credentials.', 'wpseedm')));
+            $this->respond();
         }
         elseif(is_a($signon_user, 'WP_User'))
         {
             $this->checkUserExistsAndVerified($inputs['user_login']);
-    
-            $this->setStatus(true);
             $this->setRedirect(apply_filters('wpseedm_user_login_success_redirect', admin_url()));
         }
 
@@ -76,7 +75,7 @@ class User extends \WPSEED\Action
     {
         $inputs = [
             'user_login' => $this->getReq('user_login'),
-            'user_password' => $this->getReq('user_password'),
+            'user_pass' => $this->getReq('user_pass'),
             'resetpasshash' => $this->getReq('resetpasshash')
         ];
 
@@ -84,16 +83,17 @@ class User extends \WPSEED\Action
             'user_login'
         ], true);
 
-        $this->checkUserExistsAndVerified($inputs['user_login']);
+        $type_user = new Type_User($inputs['user_login']);
+
+        $this->checkUserExistsAndVerified($type_user);
 
         if($inputs['resetpasshash'])
         {
-            if(!Utils_User::checkPasswordStrength($inputs['user_password']))
+            if(empty($inputs['user_pass']) || !Utils_User::checkPasswordStrength($inputs['user_pass']))
             {
-                $this->addErrorField('user_password');
+                $this->addErrorField('user_pass');
+                $this->respond();
             }
-
-            $type_user = new Type_User($inputs['user_login']);
 
             $error_message = apply_filters('wpseedm_user_login_passreset_error_message', sprintf(__('An error occurred while resetting the password. Please, <a href="%s">try again later</a>.', 'wpseedm'), get_site_url()));
             $hash_validated = Utils_User::validateHash($inputs['user_login'], $inputs['resetpasshash'], true);
@@ -102,7 +102,7 @@ class User extends \WPSEED\Action
             {
                 $user_updated = wp_update_user([
                     'ID' => $type_user->get_id(),
-                    'user_pass' => $inputs['user_password']
+                    'user_pass' => $inputs['user_pass']
                 ]);
 
                 if(is_wp_error($user_updated))
@@ -116,10 +116,10 @@ class User extends \WPSEED\Action
                 $this->addSuccessMessage(apply_filters('wpseedm_user_login_passreset_success_message', __('Password has been reset successfully.', 'wpseedm')));
 
                 $this->setRedirect(apply_filters('wpseedm_user_login_resetpass_redirect', add_query_arg(
-                    'email', 
-                    $type_user->getEmail(), 
-                    get_site_url()
-                ) . '#open_login'));
+                    'user_login', 
+                    $inputs['user_login'], 
+                    wp_login_url()
+                )));
             }
             else{
                 $this->addErrorMessage($error_message);
@@ -129,16 +129,16 @@ class User extends \WPSEED\Action
             $hash = Utils_User::addHash($inputs['user_login']);
 
             $resetpass_url = apply_filters('wpseedm_user_login_resetpass_url', add_query_arg([
-                'email' => $type_user->getEmail(),
+                'user_login' => $inputs['user_login'],
                 'resetpasshash' => $hash
-            ], get_site_url()));
+            ], wp_login_url()));
     
             $sent = Utils_Email::sendEmailByAction(
                 $type_user->getEmail(),
                 'resetpass',
                 [
                     '%email%' => $type_user->getEmail(),
-                    '%resetpass_url%' => $resetpass_url . '#open_resetpass'
+                    '%resetpass_url%' => $resetpass_url
                 ]
             );
 
@@ -165,7 +165,7 @@ class User extends \WPSEED\Action
             $is_by_admin = current_user_can('manage_options');
 
             $placeholders = [
-                '%user_password%' => ($is_by_admin && isset($userdata['user_pass'])) ? $userdata['user_pass'] : __('Contraseña elegida', 'wpseedm')
+                '%user_pass%' => ($is_by_admin && isset($userdata['user_pass'])) ? $userdata['user_pass'] : __('Contraseña elegida', 'wpseedm')
             ];
 
             Utils_User::sendVerificationEmail($user_id, $placeholders);
@@ -222,7 +222,7 @@ class User extends \WPSEED\Action
         }
     }
 
-    protected function checkUserExistsAndVerified($user)
+    protected function checkUserExistsAndVerified($user, $respond=true)
     {
         if(!is_a($user, '\WPSEEDM\Type\User'))
         {
@@ -231,16 +231,26 @@ class User extends \WPSEED\Action
 
         if(!$user->get_id())
         {
-            $this->setStatus(false);
-            $this->addErrorMessage(__('User not valid.', 'wpseedm'));
-            $this->respond();
+            if($respond)
+            {
+                $this->setStatus(false);
+                $this->addErrorMessage(__('User not valid.', 'wpseedm'));
+                $this->respond();
+            }
+            return false;
         }
 
         if(Utils_User::emailVerificationEnabled() && !$user->isEmailVerified())
         {
-            $this->setStatus(false);
-            $this->addErrorMessage(apply_filters('wpseedm_user_login_verif_email_message', __('Email not verified. <a href="#" class="resend-email-verif" data-user_email="' . $user->getEmail() . '">Resend</a> verification email.', 'wpseedm')));
-            $this->respond();
+            if($respond)
+            {
+                $this->setStatus(false);
+                $this->addErrorMessage(apply_filters('wpseedm_user_login_verif_email_message', __('Email not verified. <a href="#" class="resend-email-verif" data-user_email="' . $user->getEmail() . '">Resend</a> verification email.', 'wpseedm')));
+                $this->respond();
+            }
+            return false;
         }
+
+        return true;
     }
 }

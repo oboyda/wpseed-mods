@@ -15,30 +15,30 @@ jQuery(function($){
     Resend user verification email
     --------------------------------------------------
     */
-    $(document.body).on("click", "a.resend-email-verif:not(.disabled)", function(e){
-        e.preventDefault();
+    // $(document.body).on("click", "a.resend-email-verif:not(.disabled)", function(e){
+    //     e.preventDefault();
 
-        if(typeof wpseedmIndexVars.ajaxurl == 'undefined')
-        {
-            return;
-        }
+    //     if(typeof wpseedmIndexVars.ajaxurl == 'undefined')
+    //     {
+    //         return;
+    //     }
 
-        const btn = $(this);
-        const form = btn.closest("form");
+    //     const btn = $(this);
+    //     const form = btn.closest("form");
 
-        btn.addClass("disabled");
+    //     btn.addClass("disabled");
 
-        $.post(wpseedmIndexVars.ajaxurl, {
+    //     $.post(wpseedmIndexVars.ajaxurl, {
 
-            action: "wpseedm_resend_verif_email",
-            user: btn.data("user_email")
-        }, function(resp){
+    //         action: "wpseedm_resend_verif_email",
+    //         user: btn.data("user_email")
+    //     }, function(resp){
 
-            btn.removeClass("disabled", false);
+    //         btn.removeClass("disabled", false);
 
-            form.trigger("wpseedm_show_form_status", [resp]);
+    //         form.trigger("wpseedm_show_form_status", [resp]);
 
-        }, "json");
-    });
+    //     }, "json");
+    // });
 
 });
