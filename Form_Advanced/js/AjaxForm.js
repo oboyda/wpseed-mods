@@ -88,10 +88,12 @@ export class AjaxForm
                 if(resp.redirect)
                 {
                     location.assign(resp.redirect);
+                    return;
                 }
                 else if(resp.reload)
                 {
                     location.reload();
+                    return;
                 }
 
                 if(_this.form.hasClass("submit-reset"))
