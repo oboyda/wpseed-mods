@@ -1,8 +1,8 @@
 <?php
 
-namespace DFRP\Mod\Site_Loader\View;
+namespace WPSEEDM\Mod\Site_Loader\View;
 
-class Site_Loader extends \DFRP\View\View 
+class Site_Loader extends \WPSEEDM\View\View 
 {
     CONST MOD_NAME = 'Site_Loader';
 
