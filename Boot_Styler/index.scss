@@ -164,10 +164,10 @@ Responsive image
 ----------------------------------------
 */
 
-.img-resp {
+.img-rel {
     position: relative;
 }
-.img-resp img {
+.img-rel img {
     display: block;
     position: absolute;
     top: 0;
@@ -175,10 +175,10 @@ Responsive image
     width: 100%;
     height: 100%;
 }
-.img-resp.img-cover img {
+.img-rel.img-cover img {
     object-fit: cover;
 }
-.img-resp.img-contain img {
+.img-rel.img-contain img {
     object-fit: contain;
 }
 
