@@ -164,15 +164,18 @@ Responsive image
 ----------------------------------------
 */
 
-.img-rel {
+.img-resp {
     position: relative;
 }
-.img-rel img {
+.img-resp img {
     display: block;
+    width: 100%;
+    height: auto;
+}
+.img-rel img {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
     height: 100%;
 }
 .img-rel.img-cover img {
