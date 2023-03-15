@@ -50,7 +50,10 @@ export class AjaxForm
     handleInputChange(e)
     {
         // e.preventDefault();
-        this.submitForm();
+        // Let inputs to update (paged etc.)
+        setTimeout(() => {
+            this.submitForm();
+        }, 200);
     }
 
     /* ------------------------- */

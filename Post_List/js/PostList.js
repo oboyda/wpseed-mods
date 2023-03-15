@@ -32,10 +32,12 @@ export class PostList
         this.filtersFormPagedInput = this.filtersForm.find("input[name='paged']");
     }
 
-    setPaged(paged)
+    setPaged(paged, triggerChange=true)
     {
         this.filtersFormPagedInput.val(paged);
-        this.filtersFormPagedInput.change();
+        if(triggerChange){
+            this.filtersFormPagedInput.change();
+        }
     }
 
     submitFiltersForm()
@@ -59,7 +61,7 @@ export class PostList
         this.filtersForm.on("change", ".change-submit", function(){
             if(jQuery(this).attr("name") !== "paged")
             {
-                _this.setPaged(1);
+                _this.setPaged(1, false);
             }
         });
 
