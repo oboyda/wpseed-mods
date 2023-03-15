@@ -8,11 +8,11 @@ class Login_Form extends \WPSEEDM\View\View
 
     protected $req;
 
-    public function __construct($args)
+    public function __construct($args, $args_default=[])
     {
-        parent::__construct($args, [
+        parent::__construct($args, wp_parse_args($args_default, [
             
-        ]);
+        ]));
 
         $this->req = new \WPSEED\Req();
     }

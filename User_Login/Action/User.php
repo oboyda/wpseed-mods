@@ -31,7 +31,8 @@ class User extends \WPSEED\Action
         $inputs = [
             'user_login' => $this->getReq('user_login'),
             'user_pass' => $this->getReq('user_pass'),
-            'remember' => (bool)$this->getReq('remember', false),
+            'remember' => (bool)$this->getReq('remember'),
+            'redirect' => $this->getReq('redirect')
         ];
 
         $this->checkErrorFields($inputs, [
@@ -60,7 +61,13 @@ class User extends \WPSEED\Action
         elseif(is_a($signon_user, 'WP_User'))
         {
             $this->checkUserExistsAndVerified($inputs['user_login']);
-            $this->setRedirect(apply_filters('wpseedm_user_login_success_redirect', admin_url()));
+
+            if($inputs['redirect'] === '1'){
+                $inputs['redirect'] = admin_url();
+            }
+            if($inputs['redirect']){
+                $this->setRedirect(apply_filters('wpseedm_user_login_success_redirect', $inputs['redirect']));
+            }
         }
 
         if($this->status)
