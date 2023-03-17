@@ -237,7 +237,7 @@ jQuery(function($)
 
         function toggle()
         {
-            if(!view.hasClass("disabled"))
+            if(!view.hasClass("disabled") && !view.hasClass("readonly"))
             {
                 view.toggleClass("opened");
             }

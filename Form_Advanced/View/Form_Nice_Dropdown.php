@@ -10,7 +10,6 @@ class Form_Nice_Dropdown extends \WPSEEDM\View\View
     {
         parent::__construct($args, [
 
-            'enabled' => true,
             'input_id_pref' => '',
             'input_name' => '',
             'input_data_atts' => [],
@@ -20,6 +19,10 @@ class Form_Nice_Dropdown extends \WPSEEDM\View\View
             'empty_name' => '',
             'selected' => '',
             'options' => [],
+
+            'disabled' => false,
+            'enabled' => null, # keep for backward compatibility
+            'readonly' => false,
             
             'parent' => '',
             'parent_value' => '',
@@ -58,6 +61,11 @@ class Form_Nice_Dropdown extends \WPSEEDM\View\View
         if(!$this->args['options'])
         {
             $this->args['enabled'] = false;
+        }
+
+        if(isset($this->args['enabled']))
+        {
+            $this->args['disabled'] = !$this->args['enabled'];
         }
     }
 
@@ -102,9 +110,13 @@ class Form_Nice_Dropdown extends \WPSEEDM\View\View
             $this->addHtmlClass('is-child');
         }
 
-        if(!$this->args['enabled'])
+        if($this->args['disabled'])
         {
             $this->addHtmlClass("disabled");
+        }
+        if($this->args['readonly'])
+        {
+            $this->addHtmlClass("readonly");
         }
     }
 
