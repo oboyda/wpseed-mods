@@ -15,7 +15,7 @@
         <ul>
             <?php 
             $input_name = ($view->has_input_name() && $view->getInputType() === 'checkbox') ? $view->get_input_name() . '[]' : $view->get_input_name();
-            $disabled = $view->has_disabled() ? '' : ' disabled';
+            $disabled = $view->has_disabled() ? ' disabled' : '';
             
             if($view->getInputType() == 'radio' && $view->has_empty_name()): ?>
                 <li class="no-option type-<?php echo $view->getInputType(); ?>">
