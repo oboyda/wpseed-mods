@@ -73,10 +73,10 @@ class Form_Nice_Checkbox extends \WPSEEDM\View\View
             $this->args['disabled'] = true;
         }
 
-        if(!$this->args['options'])
-        {
-            $this->args['disabled'] = true;
-        }
+        // if(!$this->args['options'])
+        // {
+        //     $this->args['disabled'] = true;
+        // }
 
         if(!is_array($this->args['selected']))
         {
