@@ -109,8 +109,8 @@ export class AjaxForm
 
             _this.showFormStatus(resp);
 
-            // _this.form.trigger("wpseedm_submit_ajax_form_success", [resp, formData]);
-            _this.form.trigger("wpseedm_submit_ajax_form_after", [resp, formData]);
+            // _this.form.trigger("wpseedm_submit_ajax_form_success", [resp, reqArgs, _this.form]);
+            _this.form.trigger("wpseedm_submit_ajax_form_after", [resp, reqArgs, _this.form]);
 
             if(typeof cbk === "function")
             {
@@ -119,12 +119,13 @@ export class AjaxForm
         })
         .fail(function(error){
             // console.log("ERROR : ", error);
-            _this.form.trigger("wpseedm_submit_ajax_form_after", [{ status: false }, formData, error]);
+            _this.form.trigger("wpseedm_submit_ajax_form_after", [{ status: false }, reqArgs, _this.form, error]);
+        })
+        .always(function(resp){
+            // _this.form.trigger("wpseedm_submit_ajax_form_after", [resp, reqArgs]);
+
+            $(document.body).trigger("wpseedm_ajax_response", [resp, reqArgs, _this.form]);
         });
-        // .always(function(resp){
-        //     console.log(resp);
-        //     _this.form.trigger("wpseedm_submit_ajax_form_after", [resp, formData]);
-        // });
     }
 
     /* ------------------------- */
