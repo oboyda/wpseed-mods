@@ -124,7 +124,7 @@ export class AjaxForm
         .always(function(resp){
             // _this.form.trigger("wpseedm_submit_ajax_form_after", [resp, reqArgs]);
 
-            $(document.body).trigger("wpseedm_ajax_response", [resp, reqArgs, _this.form]);
+            jQuery(document.body).trigger("wpseedm_ajax_response", [resp, reqArgs, _this.form]);
         });
     }
 
