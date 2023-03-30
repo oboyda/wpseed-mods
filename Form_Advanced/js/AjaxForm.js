@@ -27,7 +27,7 @@ export class AjaxForm
         this.addEventListeners();
 
         this.form.addClass("ajax-form-init");
-        this.form.trigger("ajax_form_loaded", [this.form]);
+        this.form.trigger("wpseedm_ajax_form_loaded", [this.form]);
     }
 
     addEventListeners()
@@ -36,7 +36,7 @@ export class AjaxForm
         this.form.on("change", ".change-submit", this.handleInputChange.bind(this));
 
         this.form.addClass("ajax-form-init");
-        this.form.trigger("ajax_form_loaded", [this.form]);
+        this.form.trigger("wpseedm_ajax_form_loaded", [this.form]);
     }
 
     /* ------------------------- */
