@@ -40,9 +40,6 @@ class Email_Admin extends \WPSEED\Action
         $inc_default_header = (bool)$this->getReq('wpseedm_email_action__inc_default_header');
         $inc_default_footer = (bool)$this->getReq('wpseedm_email_action__inc_default_footer');
 
-        // print_r([$email_action, $email_subject, $inc_default_header, $inc_default_footer]); 
-        // exit;
-
         $type_email = new Type_Email($post_id);
 
         $type_email->set_prop('email_action', $email_action);
@@ -90,7 +87,7 @@ class Email_Admin extends \WPSEED\Action
             <tr>
                 <th><label><?php _e('Include default header.', 'wpseedm'); ?></label></th>
                 <td>
-                    <input type="checkbox" name="wpseedm_email_action__inc_default_header" value="1" <?php checked($type_email->has_default_header(), true); ?> />
+                    <input type="checkbox" name="wpseedm_email_action__inc_default_header" value="1" <?php checked($type_email->has_inc_default_header(), true); ?> />
                 </td>
             </tr>
             <?php endif; ?>
@@ -99,7 +96,7 @@ class Email_Admin extends \WPSEED\Action
             <tr>
                 <th><label><?php _e('Include default footer.', 'wpseedm'); ?></label></th>
                 <td>
-                    <input type="checkbox" name="wpseedm_email_action__inc_default_footer" value="1"<?php checked($type_email->has_default_footer(), true); ?> />
+                    <input type="checkbox" name="wpseedm_email_action__inc_default_footer" value="1"<?php checked($type_email->has_inc_default_footer(), true); ?> />
                 </td>
             </tr>
             <?php endif; ?>
