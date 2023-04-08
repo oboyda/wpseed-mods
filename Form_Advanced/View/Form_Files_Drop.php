@@ -12,8 +12,8 @@ class Form_Files_Drop extends \WPSEEDM\View\View
             'input_name' => '',
             'drop_label' => __('Drop files here or choose files below', 'wpseedm'),
             'input_class' => 'action-btn',
-            'label_class' => 'action-btn',
             'input_label' => '',
+            'label_class' => '',
             'multiple' => false
         ]);
 
