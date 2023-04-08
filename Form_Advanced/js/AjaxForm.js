@@ -130,25 +130,25 @@ export class AjaxForm
 
     /* ------------------------- */
 
-    getFileSummary(files)
-    {
-        let summ = [];
-        const filesArr = Array.isArray(files) ? files : Array.from(files);
-        filesArr.forEach((file) => {
-            if(typeof file.name !== 'undefined')
-            {
-                summ.push(file.name);
-            }
-        });
-        return summ.join(', ');
-    }
+    // getFileSummary(files)
+    // {
+    //     let summ = [];
+    //     const filesArr = Array.isArray(files) ? files : Array.from(files);
+    //     filesArr.forEach((file) => {
+    //         if(typeof file.name !== 'undefined')
+    //         {
+    //             summ.push(file.name);
+    //         }
+    //     });
+    //     return summ.join(', ');
+    // }
 
-    resetFileInput(fileInput)
-    {
-        // fileInput.get(0).files = new FileList;
-        fileInput.val("");
-        fileInput.trigger("change");
-    }
+    // resetFileInput(fileInput)
+    // {
+    //     // fileInput.get(0).files = new FileList;
+    //     fileInput.val("");
+    //     fileInput.trigger("change");
+    // }
 
     showFormStatus(resp)
     {

@@ -11,9 +11,20 @@ class Form_Files_Drop extends \WPSEEDM\View\View
         parent::__construct($args, [
             'input_name' => '',
             'drop_label' => __('Drop files here or choose files below', 'wpseedm'),
-            'btn_class' => 'app-btn bc-grey5',
+            'input_class' => 'action-btn',
+            'label_class' => 'action-btn',
+            'input_label' => '',
             'multiple' => false
         ]);
+
+        $this->setHtmlClass();
+    }
+
+    private function setHtmlClass()
+    {
+        if($this->has_input_label()):
+            $this->addHtmlClass('has-input-label');
+        endif;
     }
 
     public function getInputName()
