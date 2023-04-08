@@ -5,7 +5,7 @@
         <div class="input-file">
             <input type="file" id="<?php echo $view->getId() . '-' . $view->getInputName(); ?>" name="<?php echo $view->getInputName(); ?>" class="<?php echo $view->get_input_class(); ?>"<?php if($view->has_multiple()) echo ' multiple="true"'; ?> />
             <?php if($view->has_input_label()): ?>
-            <label for="<?php echo $view->getId() . '-' . $view->getInputName(); ?>"><?php echo $view->get_input_label(); ?></label>
+            <label for="<?php echo $view->getId() . '-' . $view->getInputName(); ?>" class="<?php echo $view->get_label_class(); ?>"><?php echo $view->get_input_label(); ?></label>
             <?php endif; ?>
         </div>
         <div class="clear-file">
