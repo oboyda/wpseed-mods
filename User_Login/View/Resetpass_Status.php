@@ -21,7 +21,7 @@ class Resetpass_Status extends \WPSEEDM\View\View
         $this->setArgs();
     }
 
-    protected function setArgs()
+    private function setArgs()
     {
         if($this->has_email())
         {

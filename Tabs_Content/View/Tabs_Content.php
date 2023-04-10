@@ -16,7 +16,7 @@ class Tabs_Content extends \WPSEEDM\View\View
         ]);
 
         $this->parseItems();
-        $this->_setHtmlClass();
+        $this->setHtmlClass();
     }
 
     protected function parseItems()
@@ -30,7 +30,7 @@ class Tabs_Content extends \WPSEEDM\View\View
         }
     }
 
-    protected function _setHtmlClass()
+    private function setHtmlClass()
     {
         $this->addHtmlClass('pos-' . $this->args['tabs_pos']);
         $this->addHtmlClass('size-' . $this->args['size']);

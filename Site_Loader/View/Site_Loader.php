@@ -14,10 +14,10 @@ class Site_Loader extends \WPSEEDM\View\View
             'bootstrap_type' => 'spinner-grow'
         ]);
 
-        $this->_setHtmlClass();
+        $this->setHtmlClass();
     }
 
-    protected function _setHtmlClass()
+    private function setHtmlClass()
     {
         if($this->args['pos'])
         {
