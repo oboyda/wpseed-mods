@@ -1,6 +1,8 @@
 <div id="<?php echo $view->getId(); ?>" class="<?php echo $view->getHtmlClass('advanced-input'); ?>" data-view="<?php echo $view->getName(); ?>">
     <div class="drop-area d-none d-lg-block">
+        <?php if($view->has_drop_label()): ?>
         <div class="drop-label"><?php echo $view->get_drop_label(); ?></div>
+        <?php endif; ?>
         <div class="drop-summary"></div>
         <div class="input-file">
             <input type="file" id="<?php echo $view->getId() . '-' . $view->getInputName(); ?>" name="<?php echo $view->getInputName(); ?>" class="<?php echo $view->get_input_class(); ?>"<?php if($view->has_multiple()) echo ' multiple="true"'; ?> />
