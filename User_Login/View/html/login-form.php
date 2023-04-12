@@ -2,8 +2,8 @@
 
     <?php $view->openContainer(); ?>
 
-    <div class="switch-contents">
-        <div class="switch-content content-login-form<?php if($view->isFormActive('login')) echo ' active'; ?>">
+    <div class="toggle-contents">
+        <div class="toggle-content content-login-form<?php if($view->isFormActive('login')) echo ' active'; ?>">
 
             <h3 class="form-title"><?php _e('Log in', 'wpseedm'); ?></h3>
 
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-6">
                             <div class="recover-pass ta-right">
-                                <a href="#" class="switch-content-btn" data-content_name="content-resetpass-form"><?php _e('Forgot your password?', 'wpseedm'); ?></a>
+                                <a href="#" class="toggle-content-btn" data-content_name="content-resetpass-form"><?php _e('Forgot your password?', 'wpseedm'); ?></a>
                             </div>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                 <div class="messages-cont"></div>
             </form>
         </div>
-        <div class="switch-content content-resetpass-form<?php if($view->isFormActive('resetpass')) echo ' active'; ?>">
+        <div class="toggle-content content-resetpass-form<?php if($view->isFormActive('resetpass')) echo ' active'; ?>">
 
             <h3 class="form-title"><?php _e('Reset password', 'wpseedm'); ?></h3>
 
@@ -72,7 +72,7 @@
                 </div>
                 <?php if(!($view->hasReq('resetpasshash') && $view->hasReq('user_login'))): ?>
                 <div class="form-block ta-right">
-                    <a href="#" class="switch-content-btn" data-content_name="content-login-form"><?php _e('Back to login', 'wpseedm'); ?></a>
+                    <a href="#" class="toggle-content-btn" data-content_name="content-login-form"><?php _e('Back to login', 'wpseedm'); ?></a>
                 </div>
                 <?php endif; ?>
 
