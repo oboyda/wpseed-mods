@@ -40,6 +40,11 @@
                         </div>
                     </div>
                 </div>
+
+                <?php if($view->has_redirect()): ?>
+                <input type="hidden" name="redirect" value="<?php echo $view->get_redirect(); ?>" />
+                <?php endif; ?>
+
                 <input type="hidden" name="action" value="wpseedm_user_login" />
 
                 <div class="messages-cont"></div>
