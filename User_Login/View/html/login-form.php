@@ -28,10 +28,12 @@
                 <div class="form-block remember-recover">
                     <div class="row">
                         <div class="col-6">
-                            <div class="nice-checkbox s1">
+                            <?php if($view->has_show_remember()): ?>
+                            <div class="nice-checkbox">
                                 <input type="checkbox" id="remember" name="remember" value="1" checked /> 
                                 <label for="remember"><?php _e('Remember me', 'wpseedm'); ?></label>
                             </div>
+                            <?php endif; ?>
                         </div>
                         <div class="col-6">
                             <div class="recover-pass ta-right">
