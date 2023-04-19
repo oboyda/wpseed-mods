@@ -16,5 +16,6 @@
             <label for="<?php echo $view->getId() . '-' . $view->getInputName(); ?>" class="<?php echo $view->get_label_class(); ?>"><?php echo $view->get_input_label(); ?></label>
             <?php endif; ?>
         </div>
+        <div class="drop-over"></div>
     </div>
 </div>
