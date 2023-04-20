@@ -11,7 +11,7 @@
             </span>
         </div>
         <div class="input-file">
-            <input type="file" id="<?php echo $view->getId() . '-' . $view->getInputName(); ?>" name="<?php echo $view->getInputName(); ?>" class="<?php echo $view->get_input_class(); ?>"<?php if($view->has_multiple()) echo ' multiple="true"'; ?> />
+            <input type="file" id="<?php echo $view->getId() . '-' . $view->getInputName(); ?>" name="<?php echo $view->getInputName(); ?>" class="<?php echo $view->get_input_class(); ?>"<?php if($view->has_multiple()) echo ' multiple="true"'; ?><?php if($view->has_required()) echo ' required'; ?> />
             <?php if($view->has_input_label()): ?>
             <label for="<?php echo $view->getId() . '-' . $view->getInputName(); ?>" class="<?php echo $view->get_label_class(); ?>"><?php echo $view->get_input_label(); ?></label>
             <?php endif; ?>
