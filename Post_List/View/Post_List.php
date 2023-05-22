@@ -19,12 +19,9 @@ class Post_List extends \WPSEEDM\View\View
             'items_total' => 0,
             'items_per_page' => 2,
 
-            // 'post_type' => 'post',
             'type_class' => '\WPSEEDM\Type\Post',
 
-            'q_args' => [
-                'paged' => 1
-            ],
+            'q_args' => [],
             'action_name' => 'wpseedm_load_post_list',
 
             'cols_num' => 2,
@@ -57,8 +54,7 @@ class Post_List extends \WPSEEDM\View\View
         if(!isset($this->items))
         {
             $this->args['q_args'] = wp_parse_args($this->args['q_args'], [
-                'paged' => 1,
-                // 'post_type' => $this->args['post_type'],
+                'paged' => get_query_var('paged') ? (int)get_query_var('paged') : 1,
                 'orderby' => 'title',
                 'posts_per_page' => $this->args['items_per_page']
             ]);
