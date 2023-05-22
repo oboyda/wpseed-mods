@@ -1,4 +1,4 @@
-@import "../Boot_Styler/vars.scss";
+// @import "../Boot_Styler/vars.scss";
 
 /*
 view.tabs-content
@@ -30,7 +30,7 @@ view.tabs-content
     }
     &.pos-top .tab-titles {
 
-        @media (min-width: $breakpoint-desktop)
+        @media (min-width: 992px)
         {
             display: flex;
             flex-direction: row;
