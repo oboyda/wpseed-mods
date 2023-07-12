@@ -6,6 +6,8 @@ use WPSEEDM\Mod\Action_Email\Utils\Email as Utils_Email;
 
 class Email extends \WPSEEDE\Post 
 {
+    public $placeholders;
+
     public function __construct($post=null)
     {
         $this->post_type = 'wpseedm_action_email';
@@ -37,20 +39,35 @@ class Email extends \WPSEEDE\Post
         ];
     }
 
-    public function getSubject($placeholder_args=[])
+    public function setPlaceholders($placeholders)
     {
+        $this->placeholders = $placeholders;
+    }
+
+    public function getSubject($placeholders=null)
+    {
+        if(isset($placeholders)){
+            $this->placeholders = $placeholders;
+        }
+
         $subject = $this->has_email_subject() ? $this->get_email_subject() : $this->getTitle();
-        return $this->replacePlaceholders($subject, $placeholder_args);
+        return $this->replacePlaceholders($subject);
     }
 
-    public function getBody($placeholder_args=[])
+    public function getBody($placeholders=null)
     {
-        return $this->replacePlaceholders($this->getContent(false), $placeholder_args);
+        if(isset($placeholders)){
+            $this->placeholders = $placeholders;
+        }
+
+        return $this->replacePlaceholders($this->getContent(false));
     }
 
-    public function replacePlaceholders($str, $placeholders=[])
+    public function replacePlaceholders($str)
     {
-        $placeholders = apply_filters('wpseedm_action_email_placeholders', array_merge($placeholders, Utils_Email::getGlobalPlaceholders()), $this);
+        $placeholders_global = Utils_Email::getGlobalPlaceholders();
+        $placeholders = isset($this->placeholders) ? array_merge($this->placeholders, $placeholders_global) : $placeholders_global;
+        $placeholders = apply_filters('wpseedm_action_email_placeholders', $placeholders, $this);
 
         if($str && $placeholders)
         {

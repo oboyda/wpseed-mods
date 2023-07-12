@@ -41,12 +41,12 @@ class Email
             'posts_per_page' => 1
         ], $action);
 
-        $items = Utils_Type_List::getItems($args, 'EUN\Mod\Action_Email\Type\Email');
+        $items = Utils_Type_List::getItems($args, 'WPSEEDM\Mod\Action_Email\Type\Email');
 
         return isset($items['items'][0]) ? $items['items'][0] : null;
     }
 
-    static function sendEmailByAction($to_email, $action, $placeholder_args=[], $return_body=false)
+    static function sendEmailByAction($to_email, $action, $placeholders=[], $return_body=false)
     {
         $type_email = self::getEmailByAction($action);
         if(!isset($type_email))
@@ -54,8 +54,10 @@ class Email
             return false;
         }
 
-        $subject = $type_email->getSubject($placeholder_args);
-        $body = $type_email->getBody($placeholder_args);
+        $type_email->setPlaceholders($placeholders);
+
+        $subject = $type_email->getSubject();
+        $body = $type_email->getBody();
         $headers = [
             'Content-Type: text/html; charset=UTF-8'
             // 'From: ' . self::getFromName() . ' <' . self::getFromEmail() . '>'
@@ -66,7 +68,8 @@ class Email
             $type_email_header = self::getEmailByAction('default_header');
             if(isset($type_email_header))
             {
-                $body = $type_email_header->getBody($placeholder_args) . $body;
+                $type_email_header->setPlaceholders($placeholders);
+                $body = $type_email_header->getBody() . $body;
             }
         }
         if($type_email->has_inc_default_footer())
@@ -74,7 +77,8 @@ class Email
             $type_email_footer = self::getEmailByAction('default_footer');
             if(isset($type_email_footer))
             {
-                $body = $body . $type_email_footer->getBody($placeholder_args);
+                $type_email_footer->setPlaceholders($placeholders);
+                $body = $body . $type_email_footer->getBody();
             }
         }
 
@@ -84,7 +88,7 @@ class Email
             'body' => $body,
             'headers' => $headers,
             'attachments' => []
-        ], $action, $placeholder_args, $type_email);
+        ], $action, $placeholders, $type_email);
 
         $sent = wp_mail(
             $mail_args['to_email'], 
