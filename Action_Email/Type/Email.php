@@ -48,9 +48,9 @@ class Email extends \WPSEEDE\Post
         return $this->replacePlaceholders($this->getContent(false), $placeholder_args);
     }
 
-    protected function replacePlaceholders($str, $placeholders=[])
+    public function replacePlaceholders($str, $placeholders=[])
     {
-        $placeholders = apply_filters('wpseedm_action_email_placeholders', array_merge($placeholders, Utils_Email::getGlobalPlaceholders()));
+        $placeholders = apply_filters('wpseedm_action_email_placeholders', array_merge($placeholders, Utils_Email::getGlobalPlaceholders()), $this);
 
         if($str && $placeholders)
         {
