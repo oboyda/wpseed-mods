@@ -36,10 +36,12 @@ class Email
 
     static function getEmailByAction($action)
     {
-        $items = Utils_Type_List::getItems([
+        $args = apply_filters('eun_action_email_get_args', [
             'email_action' => $action,
             'posts_per_page' => 1
-        ], 'WPSEEDM\Mod\Action_Email\Type\Email');
+        ], $action);
+
+        $items = Utils_Type_List::getItems($args, 'EUN\Mod\Action_Email\Type\Email');
 
         return isset($items['items'][0]) ? $items['items'][0] : null;
     }
