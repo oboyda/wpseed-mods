@@ -36,7 +36,7 @@ class Email
 
     static function getEmailByAction($action)
     {
-        $args = apply_filters('eun_action_email_get_args', [
+        $args = apply_filters('wpseedm_action_email_get_args', [
             'email_action' => $action,
             'posts_per_page' => 1
         ], $action);
