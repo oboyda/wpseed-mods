@@ -84,7 +84,7 @@ class Email
             'body' => $body,
             'headers' => $headers,
             'attachments' => []
-        ], $action, $placeholder_args);
+        ], $action, $placeholder_args, $type_email);
 
         $sent = wp_mail(
             $mail_args['to_email'], 
