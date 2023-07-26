@@ -21,7 +21,11 @@ class Post_List extends \WPSEEDM\View\View
 
             'type_class' => '\WPSEEDM\Type\Post',
 
-            'q_args' => [],
+            'q_args' => [
+                'paged' => 1,
+                'orderby' => 'title',
+                'posts_per_page' => 10
+            ],
             'action_name' => 'wpseedm_load_post_list',
 
             'cols_num' => 2,
