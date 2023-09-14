@@ -45,7 +45,7 @@ class List_Pager extends \WPSEEDM\View\View
             $pages[] = $p;
         }
 
-        if($this->args['pages_visible'] > $this->pages_max)
+        if($this->args['pages_visible'] > $this->pages_max && $this->pages_max)
         {
             $this->args['pages_visible'] = $this->pages_max;
         }
