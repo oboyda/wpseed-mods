@@ -18,11 +18,14 @@ class List_Pager extends \WPSEEDM\View\View
             'items_total' => 0,
             'items_per_page' => 10,
             'pages_visible' => 10,
+            'show_first_last' => false,
             'ajax_pager' => false,
             'align' => 'center',
 
             'btn_class' => 'app-btn size-small',
+            'btn_prev_label' => '',
             'btn_prev_icon_html' => '<i class="bi bi-chevron-left"></i>',
+            'btn_next_label' => '',
             'btn_next_icon_html' => '<i class="bi bi-chevron-right"></i>'
         ]);
 
