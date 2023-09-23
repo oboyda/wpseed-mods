@@ -194,7 +194,7 @@ jQuery(function($)
         const labelText = selectedLabel.find(".label-text");
         const dropdownArea = view.find(".dropdown-area");
         const dropdownOptions = view.find(".dropdown-options");
-        const inputName = view.data("input_name");
+        // const inputName = view.data("input_name");
         const inputs = view.find("input");
         const form = view.closest("form");
         
@@ -250,6 +250,19 @@ jQuery(function($)
             }
 
             updateLabelText();
+
+            //Set values to data
+            if(view.hasClass("multiple")){
+                let values = [];
+                inputs.filter(":checked").each(function(){
+                    values.push($(this).val());
+                });
+                view.data("value", JSON.stringify(values));
+            }else{
+                view.data("value", inputs.filter(":checked").val());
+            }
+
+            view.trigger("nice_dropdown_updated", [input.val()]);
         }
 
         function clearSelected()
@@ -269,18 +282,54 @@ jQuery(function($)
             }
         }
 
-        function enable()
+        function enable(values, disable=true)
         {
-            view.removeClass("disabled");
-            // view.find("input:not(.disabled-always)").prop("disabled", false);
-            inputs.filter(":not(.disabled-always)").prop("disabled", false);
+            if(Array.isArray(values)){
+                inputs.each(function(){
+                    const input = $(this);
+                    if(values.indexOf(input.val()) > -1){
+                        input.prop("disabled", false);
+                    }else if(disable){
+                        input.prop("disabled", true);
+                    }
+                });
+            }else{
+                view.removeClass("disabled");
+                inputs.filter(":not(.disabled-always)").prop("disabled", false);
+            }
         }
 
-        function disable()
+        function disable(values, enable=true)
         {
-            view.addClass("disabled");
-            // view.find("input:not(.disabled-always)").prop("disabled", true);
-            view.filter(":not(.disabled-always)").prop("disabled", true);
+            if(Array.isArray(values)){
+                inputs.each(function(){
+                    const input = $(this);
+                    if(values.indexOf(input.val()) > -1){
+                        input.prop("disabled", true);
+                    }else if(enable){
+                        input.prop("disabled", false);
+                    }
+                });
+            }else{
+                view.addClass("disabled");
+                inputs.filter(":not(.disabled-always)").prop("disabled", true);
+            }
+        }
+
+        function select(values, triggerChange=true)
+        {
+            const _values = Array.isArray(values) ? values : [values];
+            inputs.each(function(){
+                const input = $(this);
+                if(_values.indexOf(input.val()) > -1){
+                    input.prop("checked", true);
+                    if(triggerChange){
+                        input.trigger("change");
+                    }
+                }else{
+                    input.prop("checked", false);
+                }
+            });
         }
 
         selectedLabel.on("click", ".label-text, .label-toggle", function()
@@ -294,9 +343,6 @@ jQuery(function($)
             {
                 clearSelected();
             }
-            // else{
-            //     toggle();
-            // }
         });
 
         dropdownArea.on("click", function()
@@ -304,23 +350,21 @@ jQuery(function($)
             toggle();
         });
 
-        // dropdownOptions.find("input.user-input").on("change", function()
-        inputs.filter(".user-input").on("change", function()
+        // inputs.filter(".user-input").on("change", function()
+        inputs.on("change", function()
         {
             updateSelected($(this));
         });
 
-        view.on("nice_dropdown_enable", function(e, _inputName){
-            if(typeof inputName !== 'undefined' && _inputName === inputName)
-            {
-                enable();
-            }
+        //Events
+        view.on("nice_dropdown_enable", function(e, values){
+            enable(values);
         });
-        view.on("nice_dropdown_disable", function(e, _inputName){
-            if(typeof inputName !== 'undefined' && _inputName === inputName)
-            {
-                disable();
-            }
+        view.on("nice_dropdown_disable", function(e, values){
+            disable(values);
+        });
+        view.on("nice_dropdown_select", function(e, values){
+            select(values);
         });
 
         // Clear on form reset
@@ -329,6 +373,8 @@ jQuery(function($)
         });
 
         updateLabelText();
+
+        view.trigger("nice_dropdown_ready");
     });
 
     /*

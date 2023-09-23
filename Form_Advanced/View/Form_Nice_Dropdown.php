@@ -18,7 +18,7 @@ class Form_Nice_Dropdown extends \WPSEEDM\View\View
             'input_name' => '',
             'input_data_atts' => [],
             'multiple' => false,
-            'label' => __('Select', 'wpseedm'),
+            'label' => __('Select', 'WPSEEDM'),
             'update_label' => true,
             'empty_name' => '',
             'selected' => '',
@@ -110,13 +110,17 @@ class Form_Nice_Dropdown extends \WPSEEDM\View\View
             $this->addHtmlClass('is-child');
         }
 
-        if($this->args['disabled'])
+        if($this->has_disabled())
         {
             $this->addHtmlClass("disabled");
         }
-        if($this->args['readonly'])
+        if($this->has_readonly())
         {
             $this->addHtmlClass("readonly");
+        }
+        if($this->has_multiple())
+        {
+            $this->addHtmlClass("multiple");
         }
     }
 
